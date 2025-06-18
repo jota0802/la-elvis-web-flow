@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { SilkBackground } from '@/components/ui/backgrounds';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
+import { Silk } from '@/components/ui/Silk';
 gsap.registerPlugin(ScrollTrigger);
 
 const HeroSection = () => {
@@ -49,7 +49,13 @@ const HeroSection = () => {
   };
 
   return (
-    <SilkBackground>
+        <Silk
+      speed={5}
+      scale={1}
+      color="#7B7481"
+      noiseIntensity={1.5}
+      rotation={0}
+    />
       <section id="home" ref={heroRef} className="min-h-screen flex items-center justify-center relative overflow-hidden">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -91,7 +97,6 @@ const HeroSection = () => {
           </div>
         </div>
       </section>
-    </SilkBackground>
   );
 };
 
