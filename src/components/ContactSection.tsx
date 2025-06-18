@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -241,19 +242,17 @@ const ContactSection = () => {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
-            {/* Contact Form */}
             <Card ref={formRef} className="bg-card/40 backdrop-blur-xl border-border/50 shadow-2xl">
               <CardHeader className="pb-6">
                 <div className="flex items-center space-x-3 mb-4">
                   <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
-                    <steps[currentStep - 1].icon className="h-5 w-5 text-primary" />
+                    {React.createElement(steps[currentStep - 1].icon, { className: "h-5 w-5 text-primary" })}
                   </div>
                   <CardTitle className="font-michroma text-xl">
                     {steps[currentStep - 1].title}
                   </CardTitle>
                 </div>
                 
-                {/* Modern Stepper */}
                 <div className="flex items-center justify-between">
                   {steps.map((step, index) => (
                     <div key={step.number} className="flex items-center">
@@ -330,7 +329,6 @@ const ContactSection = () => {
               </CardContent>
             </Card>
 
-            {/* Contact Info */}
             <div ref={contactInfoRef} className="space-y-8">
               <div>
                 <h3 className="text-2xl font-michroma font-semibold mb-4">
