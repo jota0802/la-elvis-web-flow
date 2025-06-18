@@ -1,11 +1,11 @@
-
 import { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { CheckCircle, ArrowRight, ArrowLeft, Mail, Phone, MapPin } from 'lucide-react';
+import { CheckCircle, ArrowRight, ArrowLeft, Mail, Phone, MapPin, Send, User, Building, MessageSquare } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { BeamsBackground } from '@/components/ui/backgrounds';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -35,7 +35,6 @@ const ContactSection = () => {
   const contactInfoRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Animations
     gsap.fromTo(titleRef.current,
       { opacity: 0, y: 50 },
       {
@@ -71,10 +70,10 @@ const ContactSection = () => {
   }, []);
 
   const steps = [
-    { number: 1, title: "Informações Pessoais", fields: ['name', 'email'] },
-    { number: 2, title: "Informações da Empresa", fields: ['company'] },
-    { number: 3, title: "Mensagem", fields: ['message'] },
-    { number: 4, title: "Confirmação", fields: [] }
+    { number: 1, title: "Informações Pessoais", fields: ['name', 'email'], icon: User },
+    { number: 2, title: "Empresa", fields: ['company'], icon: Building },
+    { number: 3, title: "Mensagem", fields: ['message'], icon: MessageSquare },
+    { number: 4, title: "Confirmação", fields: [], icon: CheckCircle }
   ];
 
   const handleInputChange = (field: keyof FormData, value: string) => {
@@ -104,15 +103,11 @@ const ContactSection = () => {
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
-    
-    // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 2000));
-    
     toast({
       title: "Mensagem enviada!",
       description: "Entraremos em contato em breve. Obrigado!",
     });
-    
     setIsSubmitting(false);
     setCurrentStep(1);
     setFormData({ name: '', email: '', company: '', message: '' });
@@ -122,69 +117,84 @@ const ContactSection = () => {
     switch (currentStep) {
       case 1:
         return (
-          <div className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium mb-2">Nome completo *</label>
+          <div className="space-y-6">
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-muted-foreground">Nome completo *</label>
               <Input
                 value={formData.name}
                 onChange={(e) => handleInputChange('name', e.target.value)}
                 placeholder="Seu nome completo"
-                className="bg-muted/50"
+                className="h-12 bg-muted/30 border-border/50 focus:border-primary/50 focus:bg-background/80 transition-all duration-200"
               />
             </div>
-            <div>
-              <label className="block text-sm font-medium mb-2">E-mail *</label>
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-muted-foreground">E-mail *</label>
               <Input
                 type="email"
                 value={formData.email}
                 onChange={(e) => handleInputChange('email', e.target.value)}
                 placeholder="seu@email.com"
-                className="bg-muted/50"
+                className="h-12 bg-muted/30 border-border/50 focus:border-primary/50 focus:bg-background/80 transition-all duration-200"
               />
             </div>
           </div>
         );
       case 2:
         return (
-          <div className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium mb-2">Empresa *</label>
+          <div className="space-y-6">
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-muted-foreground">Empresa *</label>
               <Input
                 value={formData.company}
                 onChange={(e) => handleInputChange('company', e.target.value)}
                 placeholder="Nome da sua empresa"
-                className="bg-muted/50"
+                className="h-12 bg-muted/30 border-border/50 focus:border-primary/50 focus:bg-background/80 transition-all duration-200"
               />
             </div>
           </div>
         );
       case 3:
         return (
-          <div className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium mb-2">Mensagem *</label>
+          <div className="space-y-6">
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-muted-foreground">Mensagem *</label>
               <Textarea
                 value={formData.message}
                 onChange={(e) => handleInputChange('message', e.target.value)}
                 placeholder="Conte-nos sobre seu projeto e como podemos ajudar..."
                 rows={6}
-                className="bg-muted/50"
+                className="bg-muted/30 border-border/50 focus:border-primary/50 focus:bg-background/80 transition-all duration-200 resize-none"
               />
             </div>
           </div>
         );
       case 4:
         return (
-          <div className="space-y-6">
+          <div className="space-y-8">
             <div className="text-center">
-              <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-4" />
+              <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <CheckCircle className="h-10 w-10 text-primary" />
+              </div>
               <h3 className="text-xl font-michroma font-semibold mb-2">Confirme seus dados</h3>
+              <p className="text-muted-foreground">Revise as informações antes de enviar</p>
             </div>
-            <div className="bg-muted/30 rounded-lg p-4 space-y-2">
-              <p><strong>Nome:</strong> {formData.name}</p>
-              <p><strong>E-mail:</strong> {formData.email}</p>
-              <p><strong>Empresa:</strong> {formData.company}</p>
-              <p><strong>Mensagem:</strong> {formData.message.substring(0, 100)}...</p>
+            <div className="bg-card/50 backdrop-blur-sm rounded-xl p-6 space-y-4 border border-border/50">
+              <div className="flex justify-between py-2 border-b border-border/30">
+                <span className="text-muted-foreground">Nome:</span>
+                <span className="font-medium">{formData.name}</span>
+              </div>
+              <div className="flex justify-between py-2 border-b border-border/30">
+                <span className="text-muted-foreground">E-mail:</span>
+                <span className="font-medium">{formData.email}</span>
+              </div>
+              <div className="flex justify-between py-2 border-b border-border/30">
+                <span className="text-muted-foreground">Empresa:</span>
+                <span className="font-medium">{formData.company}</span>
+              </div>
+              <div className="py-2">
+                <span className="text-muted-foreground">Mensagem:</span>
+                <p className="font-medium mt-1 text-sm leading-relaxed">{formData.message}</p>
+              </div>
             </div>
           </div>
         );
@@ -197,149 +207,172 @@ const ContactSection = () => {
     {
       icon: Mail,
       title: "E-mail",
-      content: "contato@laelvistech.com"
+      content: "contato@laelvistech.com",
+      description: "Resposta em até 24h"
     },
     {
       icon: Phone,
       title: "Telefone",
-      content: "+55 (11) 99999-9999"
+      content: "+55 (11) 99999-9999",
+      description: "Seg a Sex, 9h às 18h"
     },
     {
       icon: MapPin,
       title: "Localização",
-      content: "São Paulo, SP - Brasil"
+      content: "São Paulo, SP",
+      description: "Brasil"
     }
   ];
 
   return (
-    <section id="contact" ref={sectionRef} className="py-20 lg:py-32 bg-gradient-to-b from-background to-muted/20">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 
-            ref={titleRef}
-            className="text-3xl md:text-4xl lg:text-5xl font-michroma font-bold mb-6"
-          >
-            Entre em <span className="text-primary">Contato</span>
-          </h2>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
-            Pronto para transformar sua ideia em realidade? Vamos conversar sobre seu projeto
-          </p>
-        </div>
+    <BeamsBackground>
+      <section id="contact" ref={sectionRef} className="py-20 lg:py-32">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 
+              ref={titleRef}
+              className="text-3xl md:text-4xl lg:text-5xl font-michroma font-bold mb-6"
+            >
+              Entre em <span className="text-primary">Contato</span>
+            </h2>
+            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+              Transforme sua ideia em realidade digital
+            </p>
+          </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
-          {/* Contact Form */}
-          <Card ref={formRef} className="spotlight-card bg-card/80 backdrop-blur-sm border-border">
-            <CardHeader>
-              <CardTitle className="font-michroma">
-                {steps[currentStep - 1].title}
-              </CardTitle>
-              
-              {/* Stepper */}
-              <div className="flex items-center space-x-2 mt-4">
-                {steps.map((step, index) => (
-                  <div key={step.number} className="flex items-center">
-                    <div
-                      className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-all duration-300 ${
-                        currentStep >= step.number
-                          ? 'bg-primary text-primary-foreground'
-                          : 'bg-muted text-muted-foreground'
-                      }`}
-                    >
-                      {currentStep > step.number ? (
-                        <CheckCircle className="h-4 w-4" />
-                      ) : (
-                        step.number
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+            {/* Contact Form */}
+            <Card ref={formRef} className="bg-card/40 backdrop-blur-xl border-border/50 shadow-2xl">
+              <CardHeader className="pb-6">
+                <div className="flex items-center space-x-3 mb-4">
+                  <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
+                    <steps[currentStep - 1].icon className="h-5 w-5 text-primary" />
+                  </div>
+                  <CardTitle className="font-michroma text-xl">
+                    {steps[currentStep - 1].title}
+                  </CardTitle>
+                </div>
+                
+                {/* Modern Stepper */}
+                <div className="flex items-center justify-between">
+                  {steps.map((step, index) => (
+                    <div key={step.number} className="flex items-center">
+                      <div
+                        className={`relative w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium transition-all duration-300 ${
+                          currentStep >= step.number
+                            ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/25'
+                            : 'bg-muted/50 text-muted-foreground'
+                        }`}
+                      >
+                        {currentStep > step.number ? (
+                          <CheckCircle className="h-5 w-5" />
+                        ) : (
+                          step.number
+                        )}
+                        {currentStep === step.number && (
+                          <div className="absolute inset-0 rounded-full border-2 border-primary animate-pulse" />
+                        )}
+                      </div>
+                      {index < steps.length - 1 && (
+                        <div
+                          className={`w-full h-0.5 mx-2 transition-all duration-300 ${
+                            currentStep > step.number ? 'bg-primary' : 'bg-muted/30'
+                          }`}
+                        />
                       )}
                     </div>
-                    {index < steps.length - 1 && (
-                      <div
-                        className={`w-12 h-0.5 transition-all duration-300 ${
-                          currentStep > step.number ? 'bg-primary' : 'bg-muted'
-                        }`}
-                      />
-                    )}
-                  </div>
-                ))}
-              </div>
-            </CardHeader>
-            
-            <CardContent className="space-y-6">
-              {renderStepContent()}
+                  ))}
+                </div>
+              </CardHeader>
               
-              <div className="flex justify-between pt-4">
-                <Button
-                  variant="outline"
-                  onClick={prevStep}
-                  disabled={currentStep === 1}
-                  className="flex items-center space-x-2"
-                >
-                  <ArrowLeft className="h-4 w-4" />
-                  <span>Anterior</span>
-                </Button>
+              <CardContent className="space-y-8">
+                {renderStepContent()}
                 
-                {currentStep < steps.length ? (
+                <div className="flex justify-between pt-6">
                   <Button
-                    onClick={nextStep}
-                    className="bg-primary hover:bg-primary/90 flex items-center space-x-2"
+                    variant="outline"
+                    onClick={prevStep}
+                    disabled={currentStep === 1}
+                    className="bg-transparent border-border/50 hover:bg-muted/50 hover:border-border transition-all duration-200"
                   >
-                    <span>Próximo</span>
-                    <ArrowRight className="h-4 w-4" />
+                    <ArrowLeft className="h-4 w-4 mr-2" />
+                    Anterior
                   </Button>
-                ) : (
-                  <Button
-                    onClick={handleSubmit}
-                    disabled={isSubmitting}
-                    className="bg-primary hover:bg-primary/90"
-                  >
-                    {isSubmitting ? 'Enviando...' : 'Enviar Mensagem'}
-                  </Button>
-                )}
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Contact Info */}
-          <div ref={contactInfoRef} className="space-y-8">
-            <div>
-              <h3 className="text-2xl font-michroma font-semibold mb-6">
-                Informações de Contato
-              </h3>
-              <p className="text-muted-foreground mb-8 leading-relaxed">
-                Estamos sempre prontos para discutir novos projetos e oportunidades. 
-                Entre em contato conosco através de qualquer um dos canais abaixo.
-              </p>
-            </div>
-
-            <div className="space-y-6">
-              {contactInfo.map((info) => (
-                <Card key={info.title} className="bg-card/50 backdrop-blur-sm border-border hover:border-primary/30 transition-all duration-300 group">
-                  <CardContent className="p-6">
-                    <div className="flex items-center space-x-4">
-                      <div className="p-3 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors duration-300">
-                        <info.icon className="h-6 w-6 text-primary" />
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-foreground">{info.title}</h4>
-                        <p className="text-muted-foreground">{info.content}</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-
-            <Card className="bg-gradient-to-br from-primary/10 to-purple-500/10 border-primary/20">
-              <CardContent className="p-6 text-center">
-                <h4 className="font-michroma font-semibold mb-2">Resposta Rápida</h4>
-                <p className="text-sm text-muted-foreground">
-                  Respondemos todas as mensagens em até 24 horas
-                </p>
+                  
+                  {currentStep < steps.length ? (
+                    <Button
+                      onClick={nextStep}
+                      className="bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-600/90 shadow-lg shadow-primary/25 transition-all duration-200"
+                    >
+                      Próximo
+                      <ArrowRight className="h-4 w-4 ml-2" />
+                    </Button>
+                  ) : (
+                    <Button
+                      onClick={handleSubmit}
+                      disabled={isSubmitting}
+                      className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 shadow-lg shadow-green-500/25 transition-all duration-200"
+                    >
+                      {isSubmitting ? (
+                        <>
+                          <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2" />
+                          Enviando...
+                        </>
+                      ) : (
+                        <>
+                          <Send className="h-4 w-4 mr-2" />
+                          Enviar Mensagem
+                        </>
+                      )}
+                    </Button>
+                  )}
+                </div>
               </CardContent>
             </Card>
+
+            {/* Contact Info */}
+            <div ref={contactInfoRef} className="space-y-8">
+              <div>
+                <h3 className="text-2xl font-michroma font-semibold mb-4">
+                  Informações de Contato
+                </h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Entre em contato e vamos transformar sua visão em realidade digital.
+                </p>
+              </div>
+
+              <div className="space-y-4">
+                {contactInfo.map((info) => (
+                  <Card key={info.title} className="bg-card/30 backdrop-blur-sm border-border/50 hover:border-primary/30 transition-all duration-300 group hover:scale-[1.02]">
+                    <CardContent className="p-6">
+                      <div className="flex items-start space-x-4">
+                        <div className="p-3 bg-primary/10 rounded-xl group-hover:bg-primary/20 transition-colors duration-300">
+                          <info.icon className="h-6 w-6 text-primary" />
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="font-semibold text-foreground mb-1">{info.title}</h4>
+                          <p className="text-foreground font-medium">{info.content}</p>
+                          <p className="text-sm text-muted-foreground">{info.description}</p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+
+              <Card className="bg-gradient-to-br from-primary/10 via-blue-500/10 to-purple-500/10 border-primary/20 backdrop-blur-sm">
+                <CardContent className="p-6 text-center">
+                  <h4 className="font-michroma font-semibold mb-2 text-primary">Resposta Garantida</h4>
+                  <p className="text-sm text-muted-foreground">
+                    Todas as mensagens são respondidas em até 24 horas
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </BeamsBackground>
   );
 };
 
