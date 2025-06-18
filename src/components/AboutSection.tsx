@@ -1,7 +1,8 @@
 
 import { useEffect, useRef } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Target, Eye, Heart } from 'lucide-react';
+import { Target, Eye, Heart, Github } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -14,7 +15,6 @@ const AboutSection = () => {
   const valuesRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Content animation
     gsap.fromTo(contentRef.current,
       { opacity: 0, x: -50 },
       {
@@ -31,7 +31,6 @@ const AboutSection = () => {
       }
     );
 
-    // Image animation
     gsap.fromTo(imageRef.current,
       { opacity: 0, x: 50, scale: 0.9 },
       {
@@ -49,7 +48,6 @@ const AboutSection = () => {
       }
     );
 
-    // Values animation
     gsap.fromTo(valuesRef.current?.children || [],
       { opacity: 0, y: 30 },
       {
@@ -72,17 +70,17 @@ const AboutSection = () => {
     {
       icon: Target,
       title: "Missão",
-      description: "Transformar ideias em soluções digitais inovadoras que impulsionam o sucesso dos nossos clientes."
+      description: "Transformar ideias em soluções digitais inovadoras"
     },
     {
       icon: Eye,
       title: "Visão",
-      description: "Ser referência em desenvolvimento web moderno, criando experiências digitais excepcionais."
+      description: "Ser referência em desenvolvimento web moderno"
     },
     {
       icon: Heart,
       title: "Valores",
-      description: "Excelência técnica, inovação constante, transparência e foco na satisfação do cliente."
+      description: "Excelência técnica, inovação e transparência"
     }
   ];
 
@@ -95,23 +93,25 @@ const AboutSection = () => {
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-michroma font-bold mb-6">
               Sobre a <span className="text-primary">La Elvis Tech</span>
             </h2>
-            <div className="space-y-6 text-lg text-muted-foreground leading-relaxed">
+            <div className="space-y-4 text-lg text-muted-foreground leading-relaxed mb-6">
               <p>
-                Somos uma empresa especializada em desenvolvimento de soluções web modernas, 
-                focada em criar experiências digitais excepcionais que atendem às necessidades 
-                específicas de cada cliente.
+                Especialistas em desenvolvimento web moderno, criamos soluções digitais 
+                que atendem às necessidades específicas de cada cliente.
               </p>
               <p>
-                Com expertise em tecnologias de ponta como React, TypeScript, Supabase e GSAP, 
-                desenvolvemos desde dashboards corporativos até aplicações web completas, 
-                sempre priorizando performance, usabilidade e design.
-              </p>
-              <p>
-                Nossa abordagem combina conhecimento técnico sólido com visão estratégica, 
-                garantindo que cada projeto não apenas funcione perfeitamente, mas também 
-                contribua efetivamente para o crescimento do seu negócio.
+                Utilizamos tecnologias de ponta para desenvolver desde dashboards 
+                corporativos até aplicações web completas.
               </p>
             </div>
+            
+            <Button 
+              onClick={() => window.open('https://github.com/La-Elvis-Tech/lab-dash-animates', '_blank')}
+              variant="outline" 
+              className="spotlight-card border-primary/30 hover:bg-primary/10 text-primary hover:text-primary"
+            >
+              <Github className="w-4 h-4 mr-2" />
+              Ver Projeto Recente
+            </Button>
           </div>
 
           <div ref={imageRef} className="relative">
@@ -127,8 +127,8 @@ const AboutSection = () => {
                       <h3 className="text-2xl font-michroma font-bold text-primary">
                         La Elvis Tech
                       </h3>
-                      <p className="text-muted-foreground px-8">
-                        Inovação e excelência em desenvolvimento web
+                      <p className="text-muted-foreground px-8 text-sm">
+                        Inovação e excelência
                       </p>
                     </div>
                   </div>
@@ -139,17 +139,17 @@ const AboutSection = () => {
         </div>
 
         {/* Values */}
-        <div ref={valuesRef} className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div ref={valuesRef} className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {values.map((value) => (
-            <Card key={value.title} className="spotlight-card bg-card/50 backdrop-blur-sm border-border hover:border-primary/30 transition-all duration-300 group hover:scale-105">
-              <CardContent className="p-8 text-center">
-                <div className="w-16 h-16 mx-auto mb-6 bg-primary/10 rounded-full flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300">
-                  <value.icon className="h-8 w-8 text-primary" />
+            <Card key={value.title} className="bg-card/30 backdrop-blur-sm border-border/50 hover:border-primary/30 transition-all duration-300 group hover:scale-105">
+              <CardContent className="p-6 text-center">
+                <div className="w-12 h-12 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300">
+                  <value.icon className="h-6 w-6 text-primary" />
                 </div>
-                <h3 className="text-xl font-michroma font-semibold mb-4 text-foreground">
+                <h3 className="text-lg font-michroma font-semibold mb-2 text-foreground">
                   {value.title}
                 </h3>
-                <p className="text-muted-foreground leading-relaxed">
+                <p className="text-sm text-muted-foreground leading-relaxed">
                   {value.description}
                 </p>
               </CardContent>
