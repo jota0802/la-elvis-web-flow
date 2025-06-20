@@ -3,10 +3,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { CheckCircle, ArrowRight, ArrowLeft, Mail, Phone, MapPin, Send, User, Building, MessageSquare } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
+import { ArrowRight, ArrowLeft, Mail, Phone, MapPin, Send, User, Building, MessageSquare } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { MinimalBackground } from '@/components/ui/backgrounds';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -74,7 +73,6 @@ const ContactSection = () => {
     { number: 1, title: "Informações Pessoais", fields: ['name', 'email'], icon: User },
     { number: 2, title: "Empresa", fields: ['company'], icon: Building },
     { number: 3, title: "Mensagem", fields: ['message'], icon: MessageSquare },
-    { number: 4, title: "Confirmação", fields: [], icon: CheckCircle }
   ];
 
   const handleInputChange = (field: keyof FormData, value: string) => {
@@ -103,6 +101,15 @@ const ContactSection = () => {
   };
 
   const handleSubmit = async () => {
+    if (!validateStep(currentStep)) {
+      toast({
+        title: "Campos obrigatórios",
+        description: "Por favor, preencha todos os campos.",
+        variant: "destructive"
+      });
+      return;
+    }
+    
     setIsSubmitting(true);
     await new Promise(resolve => setTimeout(resolve, 2000));
     toast({
@@ -119,23 +126,23 @@ const ContactSection = () => {
       case 1:
         return (
           <div className="space-y-6">
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-muted-foreground">Nome completo *</label>
+            <div className="space-y-3">
+              <label className="text-sm font-medium text-neutral-700">Nome completo</label>
               <Input
                 value={formData.name}
                 onChange={(e) => handleInputChange('name', e.target.value)}
                 placeholder="Seu nome completo"
-                className="h-12 bg-muted/30 border-border/50 focus:border-primary/50 focus:bg-background/80 transition-all duration-200"
+                className="h-12 bg-white border-neutral-300 focus:border-neutral-500 focus:ring-1 focus:ring-neutral-500 transition-all duration-200"
               />
             </div>
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-muted-foreground">E-mail *</label>
+            <div className="space-y-3">
+              <label className="text-sm font-medium text-neutral-700">E-mail</label>
               <Input
                 type="email"
                 value={formData.email}
                 onChange={(e) => handleInputChange('email', e.target.value)}
                 placeholder="seu@email.com"
-                className="h-12 bg-muted/30 border-border/50 focus:border-primary/50 focus:bg-background/80 transition-all duration-200"
+                className="h-12 bg-white border-neutral-300 focus:border-neutral-500 focus:ring-1 focus:ring-neutral-500 transition-all duration-200"
               />
             </div>
           </div>
@@ -143,13 +150,13 @@ const ContactSection = () => {
       case 2:
         return (
           <div className="space-y-6">
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-muted-foreground">Empresa *</label>
+            <div className="space-y-3">
+              <label className="text-sm font-medium text-neutral-700">Empresa</label>
               <Input
                 value={formData.company}
                 onChange={(e) => handleInputChange('company', e.target.value)}
                 placeholder="Nome da sua empresa"
-                className="h-12 bg-muted/30 border-border/50 focus:border-primary/50 focus:bg-background/80 transition-all duration-200"
+                className="h-12 bg-white border-neutral-300 focus:border-neutral-500 focus:ring-1 focus:ring-neutral-500 transition-all duration-200"
               />
             </div>
           </div>
@@ -157,45 +164,15 @@ const ContactSection = () => {
       case 3:
         return (
           <div className="space-y-6">
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-muted-foreground">Mensagem *</label>
+            <div className="space-y-3">
+              <label className="text-sm font-medium text-neutral-700">Mensagem</label>
               <Textarea
                 value={formData.message}
                 onChange={(e) => handleInputChange('message', e.target.value)}
                 placeholder="Conte-nos sobre seu projeto e como podemos ajudar..."
                 rows={6}
-                className="bg-muted/30 border-border/50 focus:border-primary/50 focus:bg-background/80 transition-all duration-200 resize-none"
+                className="bg-white border-neutral-300 focus:border-neutral-500 focus:ring-1 focus:ring-neutral-500 transition-all duration-200 resize-none"
               />
-            </div>
-          </div>
-        );
-      case 4:
-        return (
-          <div className="space-y-8">
-            <div className="text-center">
-              <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <CheckCircle className="h-10 w-10 text-primary" />
-              </div>
-              <h3 className="text-xl font-michroma font-semibold mb-2">Confirme seus dados</h3>
-              <p className="text-muted-foreground">Revise as informações antes de enviar</p>
-            </div>
-            <div className="bg-card/50 backdrop-blur-sm rounded-xl p-6 space-y-4 border border-border/50">
-              <div className="flex justify-between py-2 border-b border-border/30">
-                <span className="text-muted-foreground">Nome:</span>
-                <span className="font-medium">{formData.name}</span>
-              </div>
-              <div className="flex justify-between py-2 border-b border-border/30">
-                <span className="text-muted-foreground">E-mail:</span>
-                <span className="font-medium">{formData.email}</span>
-              </div>
-              <div className="flex justify-between py-2 border-b border-border/30">
-                <span className="text-muted-foreground">Empresa:</span>
-                <span className="font-medium">{formData.company}</span>
-              </div>
-              <div className="py-2">
-                <span className="text-muted-foreground">Mensagem:</span>
-                <p className="font-medium mt-1 text-sm leading-relaxed">{formData.message}</p>
-              </div>
             </div>
           </div>
         );
@@ -226,151 +203,139 @@ const ContactSection = () => {
   ];
 
   return (
-    <MinimalBackground>
-      <section id="contact" ref={sectionRef} className="py-20 lg:py-32">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 
-              ref={titleRef}
-              className="text-3xl md:text-4xl lg:text-5xl font-michroma font-bold mb-6"
-            >
-              Entre em <span className="text-primary">Contato</span>
-            </h2>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-              Transforme sua ideia em realidade digital
-            </p>
-          </div>
+    <section id="contact" ref={sectionRef} className="py-20 lg:py-32 bg-white">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <h2 
+            ref={titleRef}
+            className="text-3xl md:text-4xl lg:text-5xl font-michroma font-light mb-6 text-neutral-900"
+          >
+            Entre em <span className="text-neutral-700">Contato</span>
+          </h2>
+          <p className="text-lg md:text-xl text-neutral-600 max-w-2xl mx-auto">
+            Transforme sua ideia em realidade digital
+          </p>
+        </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
-            <Card ref={formRef} className="bg-card/40 backdrop-blur-xl border-border/50 shadow-2xl">
-              <CardHeader className="pb-6">
-                <div className="flex items-center space-x-3 mb-4">
-                  <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
-                    {React.createElement(steps[currentStep - 1].icon, { className: "h-5 w-5 text-primary" })}
-                  </div>
-                  <CardTitle className="font-michroma text-xl">
-                    {steps[currentStep - 1].title}
-                  </CardTitle>
-                </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 max-w-6xl mx-auto">
+          <Card ref={formRef} className="bg-white border border-neutral-200 shadow-lg">
+            <CardContent className="p-8">
+              <div className="mb-8">
+                <h3 className="font-michroma text-xl font-medium mb-6 text-neutral-900">
+                  {steps[currentStep - 1].title}
+                </h3>
                 
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between mb-8">
                   {steps.map((step, index) => (
-                    <div key={step.number} className="flex items-center">
+                    <div key={step.number} className="flex items-center flex-1">
                       <div
-                        className={`relative w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium transition-all duration-300 ${
+                        className={`relative w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-all duration-300 ${
                           currentStep >= step.number
-                            ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/25'
-                            : 'bg-muted/50 text-muted-foreground'
+                            ? 'bg-neutral-900 text-white'
+                            : 'bg-neutral-100 text-neutral-400'
                         }`}
                       >
-                        {currentStep > step.number ? (
-                          <CheckCircle className="h-5 w-5" />
-                        ) : (
-                          step.number
-                        )}
-                        {currentStep === step.number && (
-                          <div className="absolute inset-0 rounded-full border-2 border-primary animate-pulse" />
-                        )}
+                        {step.number}
                       </div>
                       {index < steps.length - 1 && (
                         <div
-                          className={`w-full h-0.5 mx-2 transition-all duration-300 ${
-                            currentStep > step.number ? 'bg-primary' : 'bg-muted/30'
+                          className={`flex-1 h-px mx-4 transition-all duration-300 ${
+                            currentStep > step.number ? 'bg-neutral-900' : 'bg-neutral-200'
                           }`}
                         />
                       )}
                     </div>
                   ))}
                 </div>
-              </CardHeader>
+              </div>
               
-              <CardContent className="space-y-8">
+              <div className="mb-8">
                 {renderStepContent()}
+              </div>
+              
+              <div className="flex justify-between">
+                <Button
+                  variant="outline"
+                  onClick={prevStep}
+                  disabled={currentStep === 1}
+                  className="bg-white border-neutral-300 text-neutral-700 hover:bg-neutral-50 hover:border-neutral-400 transition-colors duration-200"
+                >
+                  <ArrowLeft className="h-4 w-4 mr-2" />
+                  Anterior
+                </Button>
                 
-                <div className="flex justify-between pt-6">
+                {currentStep < steps.length ? (
                   <Button
-                    variant="outline"
-                    onClick={prevStep}
-                    disabled={currentStep === 1}
-                    className="bg-transparent border-border/50 hover:bg-muted/50 hover:border-border transition-all duration-200"
+                    onClick={nextStep}
+                    className="bg-neutral-900 text-white hover:bg-neutral-800 transition-colors duration-200"
                   >
-                    <ArrowLeft className="h-4 w-4 mr-2" />
-                    Anterior
+                    Próximo
+                    <ArrowRight className="h-4 w-4 ml-2" />
                   </Button>
-                  
-                  {currentStep < steps.length ? (
-                    <Button
-                      onClick={nextStep}
-                      className="bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-600/90 shadow-lg shadow-primary/25 transition-all duration-200"
-                    >
-                      Próximo
-                      <ArrowRight className="h-4 w-4 ml-2" />
-                    </Button>
-                  ) : (
-                    <Button
-                      onClick={handleSubmit}
-                      disabled={isSubmitting}
-                      className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 shadow-lg shadow-green-500/25 transition-all duration-200"
-                    >
-                      {isSubmitting ? (
-                        <>
-                          <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2" />
-                          Enviando...
-                        </>
-                      ) : (
-                        <>
-                          <Send className="h-4 w-4 mr-2" />
-                          Enviar Mensagem
-                        </>
-                      )}
-                    </Button>
-                  )}
-                </div>
+                ) : (
+                  <Button
+                    onClick={handleSubmit}
+                    disabled={isSubmitting}
+                    className="bg-neutral-900 text-white hover:bg-neutral-800 transition-colors duration-200"
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2" />
+                        Enviando...
+                      </>
+                    ) : (
+                      <>
+                        <Send className="h-4 w-4 mr-2" />
+                        Enviar Mensagem
+                      </>
+                    )}
+                  </Button>
+                )}
+              </div>
+            </CardContent>
+          </Card>
+
+          <div ref={contactInfoRef} className="space-y-8">
+            <div>
+              <h3 className="text-2xl font-michroma font-medium mb-4 text-neutral-900">
+                Informações de Contato
+              </h3>
+              <p className="text-neutral-600 leading-relaxed">
+                Entre em contato e vamos transformar sua visão em realidade digital.
+              </p>
+            </div>
+
+            <div className="space-y-6">
+              {contactInfo.map((info) => (
+                <Card key={info.title} className="bg-neutral-50 border border-neutral-200 transition-colors duration-200 hover:bg-neutral-100">
+                  <CardContent className="p-6">
+                    <div className="flex items-start space-x-4">
+                      <div className="p-3 bg-white rounded border border-neutral-200">
+                        <info.icon className="h-5 w-5 text-neutral-700" />
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="font-medium text-neutral-900 mb-1">{info.title}</h4>
+                        <p className="text-neutral-900 font-medium">{info.content}</p>
+                        <p className="text-sm text-neutral-600">{info.description}</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            <Card className="bg-neutral-900 text-white border-0">
+              <CardContent className="p-6 text-center">
+                <h4 className="font-michroma font-medium mb-2">Resposta Garantida</h4>
+                <p className="text-sm text-neutral-300">
+                  Todas as mensagens são respondidas em até 24 horas
+                </p>
               </CardContent>
             </Card>
-
-            <div ref={contactInfoRef} className="space-y-8">
-              <div>
-                <h3 className="text-2xl font-michroma font-semibold mb-4">
-                  Informações de Contato
-                </h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  Entre em contato e vamos transformar sua visão em realidade digital.
-                </p>
-              </div>
-
-              <div className="space-y-4">
-                {contactInfo.map((info) => (
-                  <Card key={info.title} className="bg-card/30 backdrop-blur-sm border-border/50 hover:border-primary/30 transition-all duration-300 group hover:scale-[1.02]">
-                    <CardContent className="p-6">
-                      <div className="flex items-start space-x-4">
-                        <div className="p-3 bg-primary/10 rounded-xl group-hover:bg-primary/20 transition-colors duration-300">
-                          <info.icon className="h-6 w-6 text-primary" />
-                        </div>
-                        <div className="flex-1">
-                          <h4 className="font-semibold text-foreground mb-1">{info.title}</h4>
-                          <p className="text-foreground font-medium">{info.content}</p>
-                          <p className="text-sm text-muted-foreground">{info.description}</p>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-
-              <Card className="bg-gradient-to-br from-primary/10 via-blue-500/10 to-purple-500/10 border-primary/20 backdrop-blur-sm">
-                <CardContent className="p-6 text-center">
-                  <h4 className="font-michroma font-semibold mb-2 text-primary">Resposta Garantida</h4>
-                  <p className="text-sm text-muted-foreground">
-                    Todas as mensagens são respondidas em até 24 horas
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
           </div>
         </div>
-      </section>
-    </MinimalBackground>
+      </div>
+    </section>
   );
 };
 
