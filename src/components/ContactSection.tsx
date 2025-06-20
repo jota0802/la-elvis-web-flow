@@ -6,7 +6,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { CheckCircle, ArrowRight, ArrowLeft, Mail, Phone, MapPin, Send, User, Building, MessageSquare } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { BeamsBackground } from '@/components/ui/backgrounds';
+import { MinimalBackground } from '@/components/ui/backgrounds';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -226,7 +226,7 @@ const ContactSection = () => {
   ];
 
   return (
-    <BeamsBackground>
+    <MinimalBackground>
       <section id="contact" ref={sectionRef} className="py-20 lg:py-32">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -370,7 +370,7 @@ const ContactSection = () => {
           </div>
         </div>
       </section>
-    </BeamsBackground>
+    </MinimalBackground>
   );
 };
 
