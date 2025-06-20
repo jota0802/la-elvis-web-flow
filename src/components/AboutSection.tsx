@@ -1,8 +1,8 @@
-
 import { useEffect, useRef } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Github, ArrowRight } from 'lucide-react';
+import { FlickeringGrid } from '@/components/ui/animated-grid';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -91,8 +91,9 @@ const AboutSection = () => {
   ];
 
   return (
-    <section id="about" ref={sectionRef} className="py-20 lg:py-32 bg-background">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="about" ref={sectionRef} className="py-20 lg:py-32 relative">
+      <FlickeringGrid className="absolute inset-0" />
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start mb-20">
           <div ref={contentRef}>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-michroma font-light mb-8">

@@ -1,6 +1,7 @@
 
 import { useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
+import { AnimatedGrid } from '@/components/ui/animated-grid';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -45,35 +46,37 @@ const HeroSection = () => {
   };
 
   return (
-    <section id="home" ref={heroRef} className="min-h-screen flex items-center justify-center bg-minimal-gradient">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-4xl mx-auto">
-          <h1 
-            ref={titleRef}
-            className="text-4xl md:text-5xl lg:text-6xl font-michroma font-light leading-tight mb-8"
-          >
-            Soluções Web{' '}
-            <span className="minimal-accent">Modernas</span>
-          </h1>
-          
-          <p 
-            ref={subtitleRef}
-            className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-12 leading-relaxed"
-          >
-            Transformamos ideias em experiências digitais excepcionais
-          </p>
-
-          <div ref={ctaRef}>
-            <Button
-              onClick={scrollToServices}
-              size="lg"
-              className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-base font-normal transition-all duration-200 hover:translate-y-[-1px] shadow-sm hover:shadow-md"
+    <section id="home" ref={heroRef} className="min-h-screen flex items-center justify-center">
+      <AnimatedGrid className="absolute inset-0">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center max-w-4xl mx-auto">
+            <h1 
+              ref={titleRef}
+              className="text-4xl md:text-5xl lg:text-6xl font-michroma font-light leading-tight mb-8"
             >
-              Conheça nossos serviços
-            </Button>
+              Soluções Web{' '}
+              <span className="minimal-accent">Modernas</span>
+            </h1>
+            
+            <p 
+              ref={subtitleRef}
+              className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-12 leading-relaxed"
+            >
+              Transformamos ideias em experiências digitais excepcionais
+            </p>
+
+            <div ref={ctaRef}>
+              <Button
+                onClick={scrollToServices}
+                size="lg"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-base font-normal transition-all duration-200 hover:translate-y-[-1px] shadow-sm hover:shadow-md"
+              >
+                Conheça nossos serviços
+              </Button>
+            </div>
           </div>
         </div>
-      </div>
+      </AnimatedGrid>
     </section>
   );
 };

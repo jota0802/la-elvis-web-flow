@@ -1,3 +1,4 @@
+
 import { useEffect, useRef } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Monitor, Database, Palette, Code } from 'lucide-react';
@@ -19,12 +20,12 @@ const ServicesSection = () => {
       title: "Dashboards Interativos",
       description: "Painéis modernos que transformam dados em insights visuais.",
       visual: (
-        <div className="h-24 w-full flex items-end justify-center space-x-3 px-6">
+        <div className="h-24 w-full flex items-end justify-center space-x-2 px-6">
           {chartData.map((value, index) => (
-            <div key={index} className="flex flex-col items-center space-y-2">
+            <div key={index} className="flex flex-col items-center">
               <div 
-                className="w-4 bg-neutral-800 rounded-full transition-all duration-300"
-                style={{ height: `${(value / 100) * 80}px` }}
+                className="w-3 bg-neutral-800 rounded-full transition-all duration-300"
+                style={{ height: `${(value / 100) * 60}px` }}
               />
             </div>
           ))}
@@ -52,15 +53,15 @@ const ServicesSection = () => {
       title: "Desenvolvimento Front-end",
       description: "Interfaces responsivas com tecnologias modernas.",
       visual: (
-        <div className="h-24 w-full flex items-center justify-center">
-          <div className="grid grid-cols-4 gap-2">
-            {[...Array(8)].map((_, i) => (
+        <div className="h-24 w-full flex items-end justify-center space-x-2 px-6">
+          {chartData.map((value, index) => (
+            <div key={index} className="flex flex-col items-center">
               <div 
-                key={i}
-                className="w-4 h-4 border border-neutral-300 rounded bg-neutral-100"
+                className="w-3 bg-neutral-800 rounded-full transition-all duration-300"
+                style={{ height: `${(value / 100) * 60}px` }}
               />
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       )
     },
