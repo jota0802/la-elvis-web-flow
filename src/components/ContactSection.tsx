@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -305,33 +304,29 @@ const ContactSection = () => {
               </p>
             </div>
 
-            <div className="space-y-6">
+            <div className="space-y-4">
               {contactInfo.map((info) => (
-                <Card key={info.title} className="bg-neutral-50 border border-neutral-200 transition-colors duration-200 hover:bg-neutral-100">
-                  <CardContent className="p-6">
-                    <div className="flex items-start space-x-4">
-                      <div className="p-3 bg-white rounded border border-neutral-200">
-                        <info.icon className="h-5 w-5 text-neutral-700" />
-                      </div>
-                      <div className="flex-1">
-                        <h4 className="font-medium text-neutral-900 mb-1">{info.title}</h4>
-                        <p className="text-neutral-900 font-medium">{info.content}</p>
-                        <p className="text-sm text-neutral-600">{info.description}</p>
-                      </div>
+                <div key={info.title} className="group bg-white border border-neutral-100 rounded-lg p-4 transition-all duration-200 hover:border-neutral-200 hover:shadow-sm">
+                  <div className="flex items-center space-x-3">
+                    <div className="flex-shrink-0 w-10 h-10 bg-neutral-50 rounded-full flex items-center justify-center group-hover:bg-neutral-100 transition-colors duration-200">
+                      <info.icon className="h-4 w-4 text-neutral-600" />
                     </div>
-                  </CardContent>
-                </Card>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs font-medium text-neutral-500 uppercase tracking-wide">{info.title}</p>
+                      <p className="text-sm font-medium text-neutral-900 truncate">{info.content}</p>
+                      <p className="text-xs text-neutral-500">{info.description}</p>
+                    </div>
+                  </div>
+                </div>
               ))}
             </div>
 
-            <Card className="bg-neutral-900 text-white border-0">
-              <CardContent className="p-6 text-center">
-                <h4 className="font-michroma font-medium mb-2">Resposta Garantida</h4>
-                <p className="text-sm text-neutral-300">
-                  Todas as mensagens são respondidas em até 24 horas
-                </p>
-              </CardContent>
-            </Card>
+            <div className="bg-neutral-900 text-white rounded-lg p-6 text-center">
+              <h4 className="font-michroma font-medium mb-2 text-sm">Resposta Garantida</h4>
+              <p className="text-xs text-neutral-300">
+                Todas as mensagens são respondidas em até 24 horas
+              </p>
+            </div>
           </div>
         </div>
       </div>

@@ -107,6 +107,34 @@
     hsl(0, 0%, 98%));
 }
 
+/* Grid animations */
+@keyframes gridMove {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(50px, 50px);
+  }
+}
+
+@keyframes gridMoveReverse {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(-25px, -25px);
+  }
+}
+
+@keyframes flicker {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.1;
+  }
+}
+
 /* Minimal text effect */
 .minimal-accent {
   color: hsl(var(--primary));

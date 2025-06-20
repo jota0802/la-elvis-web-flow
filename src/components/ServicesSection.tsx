@@ -1,4 +1,3 @@
-
 import { useEffect, useRef } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Monitor, Database, Palette, Code } from 'lucide-react';
@@ -12,14 +11,7 @@ const ServicesSection = () => {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  const chartData = [
-    { name: 'Jan', value: 30 },
-    { name: 'Fev', value: 45 },
-    { name: 'Mar', value: 80 },
-    { name: 'Abr', value: 55 },
-    { name: 'Mai', value: 90 },
-    { name: 'Jun', value: 65 },
-  ];
+  const chartData = [45, 75, 90, 60, 85, 70];
 
   const services = [
     {
@@ -27,14 +19,13 @@ const ServicesSection = () => {
       title: "Dashboards Interativos",
       description: "Painéis modernos que transformam dados em insights visuais.",
       visual: (
-        <div className="h-32 w-full flex items-end justify-center space-x-1 px-4">
-          {chartData.map((item, index) => (
-            <div key={item.name} className="flex flex-col items-center space-y-2">
+        <div className="h-24 w-full flex items-end justify-center space-x-3 px-6">
+          {chartData.map((value, index) => (
+            <div key={index} className="flex flex-col items-center space-y-2">
               <div 
-                className="w-4 bg-neutral-800 rounded-sm transition-all duration-300"
-                style={{ height: `${item.value}%` }}
+                className="w-4 bg-neutral-800 rounded-full transition-all duration-300"
+                style={{ height: `${(value / 100) * 80}px` }}
               />
-              <span className="text-xs text-neutral-500 font-mono">{item.name}</span>
             </div>
           ))}
         </div>
@@ -45,19 +36,13 @@ const ServicesSection = () => {
       title: "Integração com APIs",
       description: "Conexões robustas e seguras com sistemas externos.",
       visual: (
-        <div className="h-32 w-full flex items-center justify-center">
-          <div className="flex items-center space-x-3">
-            <div className="w-6 h-6 bg-neutral-100 border border-neutral-300 rounded flex items-center justify-center">
-              <div className="w-2 h-2 bg-neutral-800 rounded-full" />
-            </div>
+        <div className="h-24 w-full flex items-center justify-center">
+          <div className="flex items-center space-x-4">
+            <div className="w-5 h-5 bg-neutral-800 rounded-full" />
             <div className="w-8 h-px bg-neutral-300" />
-            <div className="w-6 h-6 bg-neutral-100 border border-neutral-300 rounded flex items-center justify-center">
-              <div className="w-2 h-2 bg-neutral-800 rounded-full" />
-            </div>
+            <div className="w-5 h-5 bg-neutral-800 rounded-full" />
             <div className="w-8 h-px bg-neutral-300" />
-            <div className="w-6 h-6 bg-neutral-100 border border-neutral-300 rounded flex items-center justify-center">
-              <div className="w-2 h-2 bg-neutral-800 rounded-full" />
-            </div>
+            <div className="w-5 h-5 bg-neutral-800 rounded-full" />
           </div>
         </div>
       )
@@ -67,12 +52,12 @@ const ServicesSection = () => {
       title: "Desenvolvimento Front-end",
       description: "Interfaces responsivas com tecnologias modernas.",
       visual: (
-        <div className="h-32 w-full flex items-center justify-center">
+        <div className="h-24 w-full flex items-center justify-center">
           <div className="grid grid-cols-4 gap-2">
             {[...Array(8)].map((_, i) => (
               <div 
                 key={i}
-                className="w-5 h-5 border border-neutral-300 rounded bg-neutral-50"
+                className="w-4 h-4 border border-neutral-300 rounded bg-neutral-100"
               />
             ))}
           </div>
@@ -84,19 +69,19 @@ const ServicesSection = () => {
       title: "Automação de Processos",
       description: "Soluções que otimizam fluxos de trabalho empresariais.",
       visual: (
-        <div className="h-32 w-full flex items-center justify-center">
-          <div className="space-y-2">
-            <div className="flex items-center space-x-2">
-              <div className="w-1.5 h-1.5 bg-neutral-800 rounded-full" />
-              <div className="w-12 h-px bg-neutral-300 rounded" />
-            </div>
+        <div className="h-24 w-full flex items-center justify-center">
+          <div className="space-y-3">
             <div className="flex items-center space-x-2">
               <div className="w-1.5 h-1.5 bg-neutral-800 rounded-full" />
               <div className="w-16 h-px bg-neutral-300 rounded" />
             </div>
             <div className="flex items-center space-x-2">
               <div className="w-1.5 h-1.5 bg-neutral-800 rounded-full" />
-              <div className="w-10 h-px bg-neutral-300 rounded" />
+              <div className="w-20 h-px bg-neutral-300 rounded" />
+            </div>
+            <div className="flex items-center space-x-2">
+              <div className="w-1.5 h-1.5 bg-neutral-800 rounded-full" />
+              <div className="w-12 h-px bg-neutral-300 rounded" />
             </div>
           </div>
         </div>
