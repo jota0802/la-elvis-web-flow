@@ -1,9 +1,8 @@
 
 import { useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
 import { AnimatedGrid } from '@/components/ui/animated-grid';
-import { ExternalLink, Github } from 'lucide-react';
+import { ArrowDown, Sparkles, Zap } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -15,43 +14,44 @@ const HeroSection = () => {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
-  const projectCardRef = useRef<HTMLDivElement>(null);
+  const decorativeElementsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline();
 
-      // Logo animation - ajustado para não cortar
+      // Animação mais dramática do logo
       tl.fromTo(logoRef.current, 
-        { opacity: 0, scale: 0.8, y: 20 },
-        { opacity: 1, scale: 1, y: 0, duration: 1, ease: "back.out(1.4)" }
+        { opacity: 0, scale: 0.5, y: 50, rotation: -45 },
+        { opacity: 1, scale: 1, y: 0, rotation: 0, duration: 1.2, ease: "back.out(2)" }
       )
       .fromTo(titleRef.current, 
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" },
-        "-=0.5"
+        { opacity: 0, y: 50, skewY: 3 },
+        { opacity: 1, y: 0, skewY: 0, duration: 1, ease: "power3.out" },
+        "-=0.8"
       )
       .fromTo(subtitleRef.current,
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" },
-        "-=0.4"
+        { opacity: 0, y: 30, filter: "blur(10px)" },
+        { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.8, ease: "power2.out" },
+        "-=0.6"
       )
       .fromTo(ctaRef.current,
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" },
-        "-=0.3"
+        { opacity: 0, y: 30, scale: 0.8 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: "back.out(1.4)" },
+        "-=0.4"
       )
-      .fromTo(projectCardRef.current,
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" },
-        "-=0.2"
+      .fromTo(decorativeElementsRef.current?.children || [],
+        { opacity: 0, scale: 0, rotation: 180 },
+        { opacity: 1, scale: 1, rotation: 0, duration: 0.6, stagger: 0.1, ease: "back.out(1.4)" },
+        "-=0.5"
       );
 
-      // Logo floating animation mais suave
+      // Logo floating mais dinâmico
       gsap.to(logoRef.current, {
-        y: -8,
-        rotation: 5,
-        duration: 3,
+        y: -15,
+        rotation: 8,
+        scale: 1.05,
+        duration: 4,
         repeat: -1,
         yoyo: true,
         ease: "power2.inOut"
@@ -72,95 +72,86 @@ const HeroSection = () => {
   };
 
   return (
-    <section id="home" ref={heroRef} className="min-h-screen flex flex-col items-center justify-center relative">
-      <AnimatedGrid className="absolute inset-0">
+    <section id="home" ref={heroRef} className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden">
+      <AnimatedGrid className="absolute inset-0 hero-gradient">
+        {/* Elementos decorativos flutuantes */}
+        <div ref={decorativeElementsRef} className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-20 left-10 w-20 h-20 bg-blue-500/10 rounded-full blur-xl animate-pulse" />
+          <div className="absolute top-40 right-16 w-32 h-32 bg-purple-500/10 rounded-full blur-2xl animate-pulse delay-1000" />
+          <div className="absolute bottom-32 left-20 w-24 h-24 bg-green-500/10 rounded-full blur-xl animate-pulse delay-2000" />
+          <div className="absolute top-1/3 right-1/4 w-16 h-16 bg-yellow-500/10 rounded-full blur-lg animate-pulse delay-500" />
+        </div>
+
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          {/* Conteúdo principal centralizado */}
-          <div className="text-center mb-16">
-            <div className="mb-8">
+          <div className="text-center max-w-5xl mx-auto">
+            {/* Logo e badges */}
+            <div className="mb-12">
+              <div className="flex items-center justify-center gap-4 mb-8">
+                <div className="flex items-center gap-2 px-4 py-2 bg-white/80 border border-blue-200/50 rounded-full shadow-lg backdrop-blur-sm">
+                  <Sparkles className="w-4 h-4 text-blue-600" />
+                  <span className="text-sm font-medium text-gray-700">Inovação</span>
+                </div>
+                <div className="flex items-center gap-2 px-4 py-2 bg-white/80 border border-purple-200/50 rounded-full shadow-lg backdrop-blur-sm">
+                  <Zap className="w-4 h-4 text-purple-600" />
+                  <span className="text-sm font-medium text-gray-700">Performance</span>
+                </div>
+              </div>
+              
               <img 
                 ref={logoRef}
                 src="/logolaelvis.svg" 
                 alt="La Elvis Tech" 
-                className="h-20 w-20 md:h-24 md:w-24 mx-auto filter brightness-0 mb-6"
+                className="h-24 w-24 md:h-28 md:w-28 mx-auto filter brightness-0 drop-shadow-2xl"
               />
             </div>
             
+            {/* Título principal mais impactante */}
             <h1 
               ref={titleRef}
-              className="text-4xl md:text-5xl lg:text-6xl font-michroma font-light leading-tight mb-8"
+              className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-michroma font-light leading-tight mb-8"
             >
-              Soluções Web{' '}
-              <span className="minimal-accent">Modernas</span>
+              Criamos{' '}
+              <span className="minimal-accent block md:inline">
+                Experiências
+              </span>
+              <br className="hidden md:block" />
+              <span className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl opacity-80">
+                Digitais Únicas
+              </span>
             </h1>
             
+            {/* Subtítulo reformulado */}
             <p 
               ref={subtitleRef}
-              className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-12 leading-relaxed"
+              className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-16 leading-relaxed font-light"
             >
-              Transformamos ideias em experiências digitais excepcionais
+              Transformamos suas ideias em{' '}
+              <span className="text-blue-600 font-medium">soluções web modernas</span>
+              {' '}com design excepcional e tecnologia de ponta
             </p>
 
-            <div ref={ctaRef}>
+            {/* CTA redesenhado */}
+            <div ref={ctaRef} className="flex flex-col sm:flex-row items-center justify-center gap-6">
               <Button
                 onClick={scrollToServices}
                 size="lg"
-                className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-base font-normal transition-all duration-200 hover:translate-y-[-1px] shadow-sm hover:shadow-md"
+                className="group bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-10 py-6 text-lg font-medium transition-all duration-300 hover:scale-105 shadow-xl hover:shadow-2xl rounded-full"
               >
-                Conheça nossos serviços
+                Explorar Nossos Serviços
+                <ArrowDown className="ml-2 h-5 w-5 group-hover:translate-y-1 transition-transform" />
               </Button>
+              
+              <div className="flex items-center gap-8 text-sm text-muted-foreground">
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                  <span>50+ Projetos</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
+                  <span>5+ Anos</span>
+                </div>
+              </div>
             </div>
-          </div>
-
-          {/* Card do projeto centralizado abaixo */}
-          <div className="flex justify-center" ref={projectCardRef}>
-            <Card className="bg-white/90 backdrop-blur-sm border border-neutral-200 shadow-xl hover:shadow-2xl transition-all duration-300 max-w-md w-full">
-              <CardContent className="p-8">
-                <div className="mb-6">
-                  <h3 className="text-xl font-michroma font-medium mb-3 text-neutral-900">
-                    Lab Dash Animates
-                  </h3>
-                  <p className="text-base text-neutral-600 leading-relaxed mb-6">
-                    Dashboard interativo com animações avançadas e visualizações de dados em tempo real. Criado com React, TypeScript e GSAP.
-                  </p>
-                </div>
-                
-                <div className="flex space-x-4">
-                  <Button
-                    asChild
-                    variant="outline"
-                    size="default"
-                    className="flex-1"
-                  >
-                    <a 
-                      href="https://github.com/La-Elvis-Tech/lab-dash-animates" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2"
-                    >
-                      <Github className="h-4 w-4" />
-                      GitHub
-                    </a>
-                  </Button>
-                  
-                  <Button
-                    asChild
-                    size="default"
-                    className="flex-1"
-                  >
-                    <a 
-                      href="https://laelvistech.netlify.app/" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2"
-                    >
-                      <ExternalLink className="h-4 w-4" />
-                      Ver Demo
-                    </a>
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
           </div>
         </div>
       </AnimatedGrid>

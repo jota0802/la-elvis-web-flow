@@ -1,7 +1,8 @@
+
 import { useEffect, useRef } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Github, ArrowRight } from 'lucide-react';
+import { Github, ArrowRight, ExternalLink } from 'lucide-react';
 import { FlickeringGrid } from '@/components/ui/animated-grid';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -13,6 +14,7 @@ const AboutSection = () => {
   const contentRef = useRef<HTMLDivElement>(null);
   const statsRef = useRef<HTMLDivElement>(null);
   const principlesRef = useRef<HTMLDivElement>(null);
+  const projectRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -56,6 +58,21 @@ const AboutSection = () => {
           scrollTrigger: {
             trigger: principlesRef.current,
             start: "top 80%",
+          }
+        }
+      );
+
+      gsap.fromTo(projectRef.current,
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          delay: 0.3,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: projectRef.current,
+            start: "top 75%",
           }
         }
       );
@@ -112,16 +129,6 @@ const AboutSection = () => {
                 corporativos até aplicações web completas.
               </p>
             </div>
-            
-            <Button 
-              onClick={() => window.open('https://github.com/La-Elvis-Tech/lab-dash-animates', '_blank')}
-              variant="outline" 
-              className="bg-transparent border-primary/20 hover:bg-primary/5 text-primary hover:border-primary/40 transition-all duration-200"
-            >
-              <Github className="w-4 h-4 mr-2" />
-              Ver Projeto Recente
-              <ArrowRight className="w-4 h-4 ml-2" />
-            </Button>
           </div>
 
           <div ref={statsRef} className="grid grid-cols-3 gap-6">
@@ -137,6 +144,69 @@ const AboutSection = () => {
                 </CardContent>
               </Card>
             ))}
+          </div>
+        </div>
+
+        {/* Projeto em Destaque */}
+        <div ref={projectRef} className="mb-20">
+          <div className="text-center mb-12">
+            <h3 className="text-2xl font-michroma font-light mb-4">
+              Projeto em <span className="minimal-accent">Destaque</span>
+            </h3>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Conheça nosso trabalho mais recente em dashboard interativo
+            </p>
+          </div>
+
+          <div className="flex justify-center">
+            <Card className="bg-white/90 backdrop-blur-sm border border-neutral-200 shadow-xl hover:shadow-2xl transition-all duration-300 max-w-lg w-full group hover:scale-105">
+              <CardContent className="p-8">
+                <div className="mb-6">
+                  <h4 className="text-xl font-michroma font-medium mb-3 text-neutral-900 group-hover:text-blue-700 transition-colors">
+                    Lab Dash Animates
+                  </h4>
+                  <p className="text-base text-neutral-600 leading-relaxed mb-6">
+                    Dashboard interativo com animações avançadas e visualizações de dados em tempo real. 
+                    Criado com React, TypeScript e GSAP para demonstrar nossas capacidades técnicas.
+                  </p>
+                </div>
+                
+                <div className="flex space-x-4">
+                  <Button
+                    asChild
+                    variant="outline"
+                    size="default"
+                    className="flex-1 hover:bg-blue-50 hover:border-blue-300 transition-all duration-200"
+                  >
+                    <a 
+                      href="https://github.com/La-Elvis-Tech/lab-dash-animates" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2"
+                    >
+                      <Github className="h-4 w-4" />
+                      GitHub
+                    </a>
+                  </Button>
+                  
+                  <Button
+                    asChild
+                    size="default"
+                    className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all duration-200"
+                  >
+                    <a 
+                      href="https://laelvistech.netlify.app/" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2"
+                    >
+                      <ExternalLink className="h-4 w-4" />
+                      Ver Demo
+                    </a>
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
 
