@@ -2,7 +2,7 @@
 import { useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { AnimatedGrid } from '@/components/ui/animated-grid';
-import { ArrowDown, Sparkles, Zap } from 'lucide-react';
+import { ArrowDown } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -14,44 +14,35 @@ const HeroSection = () => {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
-  const decorativeElementsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline();
 
-      // Animação mais dramática do logo
       tl.fromTo(logoRef.current, 
-        { opacity: 0, scale: 0.5, y: 50, rotation: -45 },
-        { opacity: 1, scale: 1, y: 0, rotation: 0, duration: 1.2, ease: "back.out(2)" }
+        { opacity: 0, scale: 0.8, y: 30 },
+        { opacity: 1, scale: 1, y: 0, duration: 0.8, ease: "power2.out" }
       )
       .fromTo(titleRef.current, 
-        { opacity: 0, y: 50, skewY: 3 },
-        { opacity: 1, y: 0, skewY: 0, duration: 1, ease: "power3.out" },
-        "-=0.8"
-      )
-      .fromTo(subtitleRef.current,
-        { opacity: 0, y: 30, filter: "blur(10px)" },
-        { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.8, ease: "power2.out" },
-        "-=0.6"
-      )
-      .fromTo(ctaRef.current,
-        { opacity: 0, y: 30, scale: 0.8 },
-        { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: "back.out(1.4)" },
+        { opacity: 0, y: 40 },
+        { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" },
         "-=0.4"
       )
-      .fromTo(decorativeElementsRef.current?.children || [],
-        { opacity: 0, scale: 0, rotation: 180 },
-        { opacity: 1, scale: 1, rotation: 0, duration: 0.6, stagger: 0.1, ease: "back.out(1.4)" },
-        "-=0.5"
+      .fromTo(subtitleRef.current,
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" },
+        "-=0.3"
+      )
+      .fromTo(ctaRef.current,
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" },
+        "-=0.2"
       );
 
-      // Logo floating mais dinâmico
+      // Logo floating sutil
       gsap.to(logoRef.current, {
-        y: -15,
-        rotation: 8,
-        scale: 1.05,
-        duration: 4,
+        y: -8,
+        duration: 3,
         repeat: -1,
         yoyo: true,
         ease: "power2.inOut"
@@ -73,82 +64,64 @@ const HeroSection = () => {
 
   return (
     <section id="home" ref={heroRef} className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden">
-      <AnimatedGrid className="absolute inset-0 hero-gradient">
-        {/* Elementos decorativos flutuantes */}
-        <div ref={decorativeElementsRef} className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-20 left-10 w-20 h-20 bg-blue-500/10 rounded-full blur-xl animate-pulse" />
-          <div className="absolute top-40 right-16 w-32 h-32 bg-purple-500/10 rounded-full blur-2xl animate-pulse delay-1000" />
-          <div className="absolute bottom-32 left-20 w-24 h-24 bg-green-500/10 rounded-full blur-xl animate-pulse delay-2000" />
-          <div className="absolute top-1/3 right-1/4 w-16 h-16 bg-yellow-500/10 rounded-full blur-lg animate-pulse delay-500" />
-        </div>
-
+      <AnimatedGrid className="absolute inset-0 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center max-w-5xl mx-auto">
-            {/* Logo e badges */}
-            <div className="mb-12">
-              <div className="flex items-center justify-center gap-4 mb-8">
-                <div className="flex items-center gap-2 px-4 py-2 bg-white/80 border border-blue-200/50 rounded-full shadow-lg backdrop-blur-sm">
-                  <Sparkles className="w-4 h-4 text-blue-600" />
-                  <span className="text-sm font-medium text-gray-700">Inovação</span>
-                </div>
-                <div className="flex items-center gap-2 px-4 py-2 bg-white/80 border border-purple-200/50 rounded-full shadow-lg backdrop-blur-sm">
-                  <Zap className="w-4 h-4 text-purple-600" />
-                  <span className="text-sm font-medium text-gray-700">Performance</span>
-                </div>
-              </div>
-              
+          <div className="text-center max-w-4xl mx-auto">
+            
+            {/* Logo */}
+            <div className="mb-10">
               <img 
                 ref={logoRef}
                 src="/logolaelvis.svg" 
                 alt="La Elvis Tech" 
-                className="h-24 w-24 md:h-28 md:w-28 mx-auto filter brightness-0 drop-shadow-2xl"
+                className="h-16 w-16 md:h-20 md:w-20 mx-auto filter brightness-0"
               />
             </div>
             
-            {/* Título principal mais impactante */}
+            {/* Título principal minimalista */}
             <h1 
               ref={titleRef}
-              className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-michroma font-light leading-tight mb-8"
+              className="text-3xl md:text-4xl lg:text-5xl font-michroma font-light leading-tight mb-6 text-neutral-900"
             >
               Criamos{' '}
-              <span className="minimal-accent block md:inline">
+              <span className="text-neutral-600">
                 Experiências
               </span>
-              <br className="hidden md:block" />
-              <span className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl opacity-80">
+              <br />
+              <span className="text-2xl md:text-3xl lg:text-4xl text-neutral-500">
                 Digitais Únicas
               </span>
             </h1>
             
-            {/* Subtítulo reformulado */}
+            {/* Subtítulo simplificado */}
             <p 
               ref={subtitleRef}
-              className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-16 leading-relaxed font-light"
+              className="text-base md:text-lg text-neutral-600 max-w-2xl mx-auto mb-12 leading-relaxed"
             >
               Transformamos suas ideias em{' '}
-              <span className="text-blue-600 font-medium">soluções web modernas</span>
+              <span className="text-neutral-800 font-medium">soluções web modernas</span>
               {' '}com design excepcional e tecnologia de ponta
             </p>
 
-            {/* CTA redesenhado */}
-            <div ref={ctaRef} className="flex flex-col sm:flex-row items-center justify-center gap-6">
+            {/* CTA minimalista */}
+            <div ref={ctaRef} className="flex flex-col items-center justify-center gap-8">
               <Button
                 onClick={scrollToServices}
                 size="lg"
-                className="group bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-10 py-6 text-lg font-medium transition-all duration-300 hover:scale-105 shadow-xl hover:shadow-2xl rounded-full"
+                className="bg-neutral-900 hover:bg-neutral-800 text-white px-8 py-3 text-base font-medium transition-all duration-300 hover:scale-105 shadow-lg rounded-md"
               >
                 Explorar Nossos Serviços
-                <ArrowDown className="ml-2 h-5 w-5 group-hover:translate-y-1 transition-transform" />
+                <ArrowDown className="ml-2 h-4 w-4" />
               </Button>
               
-              <div className="flex items-center gap-8 text-sm text-muted-foreground">
+              <div className="flex items-center gap-6 text-sm text-neutral-500">
                 <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                  <span>50+ Projetos</span>
+                  <div className="w-1.5 h-1.5 bg-neutral-400 rounded-full" />
+                  <span>15+ Projetos</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
-                  <span>5+ Anos</span>
+                  <div className="w-1.5 h-1.5 bg-neutral-400 rounded-full" />
+                  <span>2+ Anos</span>
                 </div>
               </div>
             </div>
