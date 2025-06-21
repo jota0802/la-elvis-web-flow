@@ -107,22 +107,33 @@
     hsl(0, 0%, 98%));
 }
 
-/* Grid animations */
-@keyframes gridMove {
+/* Animações do grid melhoradas */
+@keyframes gridFlow {
   0% {
     transform: translate(0, 0);
   }
   100% {
-    transform: translate(80px, 80px);
+    transform: translate(60px, 60px);
   }
 }
 
-@keyframes gridMoveReverse {
+@keyframes gridFlowReverse {
   0% {
-    transform: translate(0, 0);
+    transform: translate(0, 0) rotate(0deg);
   }
   100% {
-    transform: translate(-40px, -40px);
+    transform: translate(-40px, -40px) rotate(360deg);
+  }
+}
+
+@keyframes pulseGrid {
+  0%, 100% {
+    opacity: 0.05;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.15;
+    transform: scale(1.1);
   }
 }
 

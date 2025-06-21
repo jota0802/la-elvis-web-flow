@@ -9,27 +9,38 @@ interface AnimatedGridProps {
 export const AnimatedGrid = ({ children, className = "" }: AnimatedGridProps) => {
   return (
     <div className={`relative overflow-hidden ${className}`}>
-      <div className="absolute inset-0 opacity-30">
+      <div className="absolute inset-0">
+        {/* Grid principal com movimento diagonal */}
         <div 
-          className="absolute inset-0 bg-grid-pattern animate-grid-move"
+          className="absolute inset-0 opacity-[0.15]"
           style={{
             backgroundImage: `
-              linear-gradient(to right, rgba(0, 0, 0, 0.15) 1px, transparent 1px),
-              linear-gradient(to bottom, rgba(0, 0, 0, 0.15) 1px, transparent 1px)
+              linear-gradient(to right, rgba(0, 0, 0, 0.2) 1px, transparent 1px),
+              linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 1px, transparent 1px)
             `,
-            backgroundSize: '80px 80px',
-            animation: 'gridMove 25s linear infinite'
+            backgroundSize: '60px 60px',
+            animation: 'gridFlow 30s linear infinite'
           }}
         />
+        {/* Grid secundário com movimento contrário */}
         <div 
-          className="absolute inset-0 bg-grid-pattern animate-grid-move-reverse"
+          className="absolute inset-0 opacity-[0.08]"
           style={{
             backgroundImage: `
-              linear-gradient(to right, rgba(0, 0, 0, 0.08) 1px, transparent 1px),
-              linear-gradient(to bottom, rgba(0, 0, 0, 0.08) 1px, transparent 1px)
+              linear-gradient(45deg, rgba(0, 0, 0, 0.15) 1px, transparent 1px),
+              linear-gradient(-45deg, rgba(0, 0, 0, 0.15) 1px, transparent 1px)
             `,
             backgroundSize: '40px 40px',
-            animation: 'gridMoveReverse 20s linear infinite'
+            animation: 'gridFlowReverse 25s linear infinite'
+          }}
+        />
+        {/* Pontos de intersecção animados */}
+        <div 
+          className="absolute inset-0 opacity-[0.05]"
+          style={{
+            backgroundImage: `radial-gradient(circle at 60px 60px, rgba(0, 0, 0, 0.3) 2px, transparent 2px)`,
+            backgroundSize: '60px 60px',
+            animation: 'pulseGrid 8s ease-in-out infinite'
           }}
         />
       </div>
