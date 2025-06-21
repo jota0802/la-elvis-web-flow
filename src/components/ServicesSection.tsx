@@ -53,15 +53,15 @@ const ServicesSection = () => {
       title: "Desenvolvimento Front-end",
       description: "Interfaces responsivas com tecnologias modernas.",
       visual: (
-        <div className="h-24 w-full flex items-end justify-center space-x-2 px-6">
-          {chartData.map((value, index) => (
-            <div key={index} className="flex flex-col items-center">
-              <div 
-                className="w-3 bg-neutral-800 rounded-full transition-all duration-300"
-                style={{ height: `${(value / 100) * 60}px` }}
-              />
-            </div>
-          ))}
+        <div className="h-24 w-full flex items-center justify-center">
+          <div className="grid grid-cols-3 gap-2">
+            <div className="w-6 h-6 bg-neutral-800 rounded" />
+            <div className="w-6 h-6 bg-neutral-600 rounded" />
+            <div className="w-6 h-6 bg-neutral-400 rounded" />
+            <div className="w-6 h-6 bg-neutral-600 rounded" />
+            <div className="w-6 h-6 bg-neutral-800 rounded" />
+            <div className="w-6 h-6 bg-neutral-400 rounded" />
+          </div>
         </div>
       )
     },
