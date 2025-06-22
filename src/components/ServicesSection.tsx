@@ -1,7 +1,7 @@
 
 import { useEffect, useRef } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { BarChart3, Globe, Brush, Cog } from 'lucide-react';
+import { Code, Database, Palette, Settings } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -16,7 +16,7 @@ const ServicesSection = () => {
 
   const services = [
     {
-      icon: BarChart3,
+      icon: Code,
       title: "Dashboards Interativos",
       description: "Painéis modernos que transformam dados em insights visuais.",
       visual: (
@@ -33,7 +33,7 @@ const ServicesSection = () => {
       )
     },
     {
-      icon: Globe,
+      icon: Database,
       title: "Integração com APIs",
       description: "Conexões robustas e seguras com sistemas externos.",
       visual: (
@@ -49,7 +49,7 @@ const ServicesSection = () => {
       )
     },
     {
-      icon: Brush,
+      icon: Palette,
       title: "Desenvolvimento Front-end",
       description: "Interfaces responsivas com tecnologias modernas.",
       visual: (
@@ -66,7 +66,7 @@ const ServicesSection = () => {
       )
     },
     {
-      icon: Cog,
+      icon: Settings,
       title: "Automação de Processos",
       description: "Soluções que otimizam fluxos de trabalho empresariais.",
       visual: (
@@ -132,14 +132,14 @@ const ServicesSection = () => {
   }, []);
 
   return (
-    <section id="services" ref={sectionRef} className="py-20 lg:py-32 bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/30">
+    <section id="services" ref={sectionRef} className="py-20 lg:py-32 bg-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 
             ref={titleRef}
             className="text-3xl md:text-4xl lg:text-5xl font-michroma font-light mb-6 text-neutral-900"
           >
-            Nossos <span className="minimal-accent">Serviços</span>
+            Nossos <span className="text-neutral-600">Serviços</span>
           </h2>
           <p className="text-lg md:text-xl text-neutral-600 max-w-2xl mx-auto">
             Soluções completas para transformar suas ideias em realidade digital
@@ -152,16 +152,16 @@ const ServicesSection = () => {
               key={service.title}
               ref={el => cardRefs.current[index] = el}
             >
-              <Card className="bg-white/80 backdrop-blur-sm border border-neutral-200/50 transition-all duration-300 hover:border-neutral-300/70 hover:shadow-xl hover:scale-105 h-full group">
+              <Card className="bg-white border border-neutral-200 transition-all duration-300 hover:border-neutral-400 hover:shadow-md h-full group">
                 <CardContent className="p-8">
                   <div className="flex items-start space-x-4 mb-6">
                     <div className="flex-shrink-0">
-                      <div className="p-3 bg-gradient-to-br from-blue-100 to-purple-100 rounded-xl border border-neutral-200/50 group-hover:from-blue-200 group-hover:to-purple-200 transition-all duration-300">
-                        <service.icon className="h-6 w-6 text-blue-600 group-hover:text-purple-600 transition-colors duration-300" />
+                      <div className="p-3 bg-neutral-50 rounded-xl border border-neutral-200">
+                        <service.icon className="h-6 w-6 text-neutral-600" />
                       </div>
                     </div>
                     <div className="flex-1">
-                      <h3 className="text-lg font-michroma font-medium mb-3 text-neutral-900 group-hover:text-blue-700 transition-colors duration-300">
+                      <h3 className="text-lg font-michroma font-medium mb-3 text-neutral-900">
                         {service.title}
                       </h3>
                       <p className="text-sm text-neutral-600 leading-relaxed">
@@ -170,7 +170,7 @@ const ServicesSection = () => {
                     </div>
                   </div>
                   
-                  <div className="p-4 bg-gradient-to-br from-neutral-50 to-blue-50/50 rounded-xl border border-neutral-100/50 group-hover:from-blue-50/50 group-hover:to-purple-50/50 transition-all duration-300">
+                  <div className="p-4 bg-neutral-50 rounded-xl border border-neutral-100">
                     {service.visual}
                   </div>
                 </CardContent>
