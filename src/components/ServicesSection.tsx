@@ -2,7 +2,6 @@
 import { useEffect, useRef } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Code, Database, Palette, Settings } from 'lucide-react';
-import { FadeIn, SlideIn } from 'react-bits';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -42,7 +41,6 @@ const ServicesSection = () => {
       description: "Conexões robustas e seguras com sistemas externos.",
       visual: (
         <div className="h-24 w-full flex items-center justify-center relative overflow-hidden">
-          {/* Animated beam effect */}
           <div className="flex items-center space-x-4 relative">
             <div className="w-5 h-5 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full animate-pulse" />
             <div className="w-8 h-px bg-gradient-to-r from-green-300 to-emerald-300 relative">
@@ -154,50 +152,44 @@ const ServicesSection = () => {
     <section id="services" ref={sectionRef} className="py-20 lg:py-32 bg-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <FadeIn delay={0.2}>
-            <h2 
-              ref={titleRef}
-              className="text-3xl md:text-4xl lg:text-5xl font-michroma font-light mb-6"
-            >
-              Nossos <span className="minimal-accent">Serviços</span>
-            </h2>
-          </FadeIn>
-          <FadeIn delay={0.4}>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Soluções completas para transformar suas ideias em realidade digital
-            </p>
-          </FadeIn>
+          <h2 
+            ref={titleRef}
+            className="text-3xl md:text-4xl lg:text-5xl font-michroma font-light mb-6"
+          >
+            Nossos <span className="minimal-accent">Serviços</span>
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Soluções completas para transformar suas ideias em realidade digital
+          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {services.map((service, index) => (
-            <SlideIn key={service.title} delay={index * 0.1} direction="up">
-              <div ref={el => cardRefs.current[index] = el}>
-                <Card className="minimal-card h-full group hover:border-primary/20 transition-all duration-300">
-                  <CardContent className="p-8">
-                    <div className="flex items-start space-x-4 mb-6">
-                      <div className="flex-shrink-0">
-                        <div className="p-3 bg-muted rounded-xl border">
-                          <service.icon className="h-6 w-6 text-muted-foreground" />
-                        </div>
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="text-lg font-michroma font-medium mb-3 text-foreground">
-                          {service.title}
-                        </h3>
-                        <p className="text-sm text-muted-foreground leading-relaxed">
-                          {service.description}
-                        </p>
+            <div key={service.title} ref={el => cardRefs.current[index] = el}>
+              <Card className="minimal-card h-full group hover:border-primary/20 transition-all duration-300">
+                <CardContent className="p-8">
+                  <div className="flex items-start space-x-4 mb-6">
+                    <div className="flex-shrink-0">
+                      <div className="p-3 bg-muted rounded-xl border">
+                        <service.icon className="h-6 w-6 text-muted-foreground" />
                       </div>
                     </div>
-                    
-                    <div className="p-4 bg-muted/50 rounded-xl border">
-                      {service.visual}
+                    <div className="flex-1">
+                      <h3 className="text-lg font-michroma font-medium mb-3 text-foreground">
+                        {service.title}
+                      </h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        {service.description}
+                      </p>
                     </div>
-                  </CardContent>
-                </Card>
-              </div>
-            </SlideIn>
+                  </div>
+                  
+                  <div className="p-4 bg-muted/50 rounded-xl border">
+                    {service.visual}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           ))}
         </div>
       </div>
