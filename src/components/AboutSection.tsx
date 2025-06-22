@@ -84,9 +84,9 @@ const AboutSection = () => {
   }, []);
 
   const stats = [
-    { label: "Projetos Entregues", value: "50+" },
-    { label: "Clientes Satisfeitos", value: "40+" },
-    { label: "Anos de Experiência", value: "5+" }
+    { label: "Projetos Entregues", value: "15+" },
+    { label: "Clientes Satisfeitos", value: "12+" },
+    { label: "Anos de Experiência", value: "2+" }
   ];
 
   const principles = [
@@ -108,7 +108,7 @@ const AboutSection = () => {
   ];
 
   return (
-    <section id="about" ref={sectionRef} className="py-20 lg:py-32 relative">
+    <section id="about" ref={sectionRef} className="py-20 lg:py-32 relative bg-white">
       <FlickeringGrid className="absolute inset-0">
         <div />
       </FlickeringGrid>
@@ -159,13 +159,13 @@ const AboutSection = () => {
           </div>
 
           <div className="flex justify-center">
-            <Card className="bg-white/90 backdrop-blur-sm border border-neutral-200 shadow-xl hover:shadow-2xl transition-all duration-300 max-w-lg w-full group hover:scale-105">
+            <Card className="minimal-card max-w-lg w-full transition-all duration-300 hover:shadow-lg">
               <CardContent className="p-8">
                 <div className="mb-6">
-                  <h4 className="text-xl font-michroma font-medium mb-3 text-neutral-900 group-hover:text-blue-700 transition-colors">
+                  <h4 className="text-xl font-michroma font-medium mb-3 text-foreground">
                     Lab Dash Animates
                   </h4>
-                  <p className="text-base text-neutral-600 leading-relaxed mb-6">
+                  <p className="text-base text-muted-foreground leading-relaxed mb-6">
                     Dashboard interativo com animações avançadas e visualizações de dados em tempo real. 
                     Criado com React, TypeScript e GSAP para demonstrar nossas capacidades técnicas.
                   </p>
@@ -176,7 +176,7 @@ const AboutSection = () => {
                     asChild
                     variant="outline"
                     size="default"
-                    className="flex-1 hover:bg-blue-50 hover:border-blue-300 transition-all duration-200"
+                    className="flex-1 minimal-hover"
                   >
                     <a 
                       href="https://github.com/La-Elvis-Tech/lab-dash-animates" 
@@ -192,7 +192,7 @@ const AboutSection = () => {
                   <Button
                     asChild
                     size="default"
-                    className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all duration-200"
+                    className="flex-1 bg-primary hover:bg-primary/90"
                   >
                     <a 
                       href="https://laelvistech.netlify.app/" 
