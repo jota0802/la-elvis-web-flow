@@ -1,4 +1,3 @@
-
 import { useEffect, useRef } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Code, Database, Palette, Settings } from 'lucide-react';
@@ -141,38 +140,38 @@ const ServicesSection = () => {
         }
       });
 
-      // Animate frontend squares smoothly swapping positions
+      // Animação corrigida dos quadradinhos do front-end
       if (frontendSquareRefs.current.length > 0) {
         const squares = frontendSquareRefs.current.filter(Boolean);
         
-        const swapAnimation = () => {
-          const timeline = gsap.timeline({
-            repeat: -1,
-            repeatDelay: 1
-          });
-
-          // Create smooth position swapping
-          squares.forEach((square, index) => {
-            const nextIndex = (index + 1) % squares.length;
-            const currentPos = { x: 0, y: 0 };
-            
-            timeline.to(square, {
-              x: Math.cos(index * Math.PI / 3) * 8,
-              y: Math.sin(index * Math.PI / 3) * 8,
-              duration: 1.5,
-              ease: "power2.inOut",
-            }, index * 0.2);
-          });
-
-          timeline.to(squares, {
-            x: 0,
-            y: 0,
-            duration: 1.5,
-            ease: "power2.inOut",
-          }, "+=0.5");
-        };
-
-        swapAnimation();
+        // Animar troca de posições de forma contínua
+        const tl = gsap.timeline({ repeat: -1, repeatDelay: 1 });
+        
+        squares.forEach((square, index) => {
+          if (square) {
+            // Primeira fase: mover para posições intermediárias
+            tl.to(square, {
+              x: gsap.utils.random(-15, 15),
+              y: gsap.utils.random(-15, 15),
+              rotation: gsap.utils.random(-10, 10),
+              duration: 1,
+              ease: "power2.inOut"
+            }, index * 0.1);
+          }
+        });
+        
+        // Segunda fase: voltar ao centro com nova rotação
+        squares.forEach((square, index) => {
+          if (square) {
+            tl.to(square, {
+              x: 0,
+              y: 0,
+              rotation: 0,
+              duration: 1,
+              ease: "power2.inOut"
+            }, "reset");
+          }
+        });
       }
     }, sectionRef);
 
