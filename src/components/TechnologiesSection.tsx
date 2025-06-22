@@ -1,4 +1,3 @@
-
 import { useEffect, useRef } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { 
@@ -24,7 +23,7 @@ const TechnologiesSection = () => {
     { 
       name: "React", 
       category: "Frontend",
-      logo: <SiReact className="w-8 h-8 text-[#61dafb]" />
+       logo: <SiReact className="w-8 h-8 text-[#61dafb]" />
     },
     { 
       name: "TypeScript", 
