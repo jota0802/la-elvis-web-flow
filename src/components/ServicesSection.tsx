@@ -2,6 +2,7 @@
 import { useEffect, useRef } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Code, Database, Palette, Settings } from 'lucide-react';
+import { FadeIn, SlideIn } from 'react-bits';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -25,7 +26,10 @@ const ServicesSection = () => {
             <div key={index} className="flex flex-col items-center">
               <div 
                 className="w-3 bg-gradient-to-t from-blue-600 to-blue-400 rounded-full transition-all duration-300"
-                style={{ height: `${(value / 100) * 60}px` }}
+                style={{ 
+                  height: `${(value / 100) * 60}px`,
+                  animation: `chartPulse 2s ease-in-out infinite ${index * 0.2}s`
+                }}
               />
             </div>
           ))}
@@ -37,13 +41,18 @@ const ServicesSection = () => {
       title: "Integração com APIs",
       description: "Conexões robustas e seguras com sistemas externos.",
       visual: (
-        <div className="h-24 w-full flex items-center justify-center">
-          <div className="flex items-center space-x-4">
+        <div className="h-24 w-full flex items-center justify-center relative overflow-hidden">
+          {/* Animated beam effect */}
+          <div className="flex items-center space-x-4 relative">
             <div className="w-5 h-5 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full animate-pulse" />
-            <div className="w-8 h-px bg-gradient-to-r from-green-300 to-emerald-300" />
-            <div className="w-5 h-5 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full animate-pulse delay-200" />
-            <div className="w-8 h-px bg-gradient-to-r from-blue-300 to-cyan-300" />
-            <div className="w-5 h-5 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full animate-pulse delay-400" />
+            <div className="w-8 h-px bg-gradient-to-r from-green-300 to-emerald-300 relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-60 animate-[shimmer_2s_ease-in-out_infinite]" />
+            </div>
+            <div className="w-5 h-5 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }} />
+            <div className="w-8 h-px bg-gradient-to-r from-blue-300 to-cyan-300 relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-60 animate-[shimmer_2s_ease-in-out_infinite_0.5s]" />
+            </div>
+            <div className="w-5 h-5 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full animate-pulse" style={{ animationDelay: '1s' }} />
           </div>
         </div>
       )
@@ -55,12 +64,22 @@ const ServicesSection = () => {
       visual: (
         <div className="h-24 w-full flex items-center justify-center">
           <div className="grid grid-cols-3 gap-2">
-            <div className="w-6 h-6 bg-gradient-to-br from-red-500 to-orange-500 rounded shadow-sm" />
-            <div className="w-6 h-6 bg-gradient-to-br from-blue-500 to-purple-500 rounded shadow-sm" />
-            <div className="w-6 h-6 bg-gradient-to-br from-green-500 to-teal-500 rounded shadow-sm" />
-            <div className="w-6 h-6 bg-gradient-to-br from-yellow-500 to-orange-500 rounded shadow-sm" />
-            <div className="w-6 h-6 bg-gradient-to-br from-pink-500 to-rose-500 rounded shadow-sm" />
-            <div className="w-6 h-6 bg-gradient-to-br from-indigo-500 to-blue-500 rounded shadow-sm" />
+            {[
+              'from-red-500 to-orange-500',
+              'from-blue-500 to-purple-500', 
+              'from-green-500 to-teal-500',
+              'from-yellow-500 to-orange-500',
+              'from-pink-500 to-rose-500',
+              'from-indigo-500 to-blue-500'
+            ].map((gradient, index) => (
+              <div 
+                key={index}
+                className={`w-6 h-6 bg-gradient-to-br ${gradient} rounded shadow-sm`}
+                style={{
+                  animation: `colorShift 3s ease-in-out infinite ${index * 0.5}s`
+                }}
+              />
+            ))}
           </div>
         </div>
       )
@@ -70,20 +89,20 @@ const ServicesSection = () => {
       title: "Automação de Processos",
       description: "Soluções que otimizam fluxos de trabalho empresariais.",
       visual: (
-        <div className="h-24 w-full flex items-center justify-center">
+        <div className="h-24 w-full flex items-center justify-center relative">
           <div className="space-y-3">
-            <div className="flex items-center space-x-2">
-              <div className="w-1.5 h-1.5 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full animate-pulse" />
-              <div className="w-16 h-px bg-gradient-to-r from-blue-300 to-purple-300 rounded" />
-            </div>
-            <div className="flex items-center space-x-2">
-              <div className="w-1.5 h-1.5 bg-gradient-to-r from-green-500 to-teal-500 rounded-full animate-pulse delay-200" />
-              <div className="w-20 h-px bg-gradient-to-r from-green-300 to-teal-300 rounded" />
-            </div>
-            <div className="flex items-center space-x-2">
-              <div className="w-1.5 h-1.5 bg-gradient-to-r from-orange-500 to-red-500 rounded-full animate-pulse delay-400" />
-              <div className="w-12 h-px bg-gradient-to-r from-orange-300 to-red-300 rounded" />
-            </div>
+            {[
+              { color: 'from-blue-500 to-purple-500', width: 'w-16' },
+              { color: 'from-green-500 to-teal-500', width: 'w-20' },
+              { color: 'from-orange-500 to-red-500', width: 'w-12' }
+            ].map((item, index) => (
+              <div key={index} className="flex items-center space-x-2">
+                <div className={`w-1.5 h-1.5 bg-gradient-to-r ${item.color} rounded-full animate-pulse`} style={{ animationDelay: `${index * 0.3}s` }} />
+                <div className={`${item.width} h-px bg-gradient-to-r ${item.color.replace('500', '300')} rounded`} style={{
+                  animation: `flowLine 2s ease-in-out infinite ${index * 0.4}s`
+                }} />
+              </div>
+            ))}
           </div>
         </div>
       )
@@ -135,47 +154,50 @@ const ServicesSection = () => {
     <section id="services" ref={sectionRef} className="py-20 lg:py-32 bg-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 
-            ref={titleRef}
-            className="text-3xl md:text-4xl lg:text-5xl font-michroma font-light mb-6 text-neutral-900"
-          >
-            Nossos <span className="text-neutral-600">Serviços</span>
-          </h2>
-          <p className="text-lg md:text-xl text-neutral-600 max-w-2xl mx-auto">
-            Soluções completas para transformar suas ideias em realidade digital
-          </p>
+          <FadeIn delay={0.2}>
+            <h2 
+              ref={titleRef}
+              className="text-3xl md:text-4xl lg:text-5xl font-michroma font-light mb-6"
+            >
+              Nossos <span className="minimal-accent">Serviços</span>
+            </h2>
+          </FadeIn>
+          <FadeIn delay={0.4}>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Soluções completas para transformar suas ideias em realidade digital
+            </p>
+          </FadeIn>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {services.map((service, index) => (
-            <div
-              key={service.title}
-              ref={el => cardRefs.current[index] = el}
-            >
-              <Card className="bg-white border border-neutral-200 transition-all duration-300 hover:border-neutral-400 hover:shadow-md h-full group">
-                <CardContent className="p-8">
-                  <div className="flex items-start space-x-4 mb-6">
-                    <div className="flex-shrink-0">
-                      <div className="p-3 bg-neutral-50 rounded-xl border border-neutral-200">
-                        <service.icon className="h-6 w-6 text-neutral-600" />
+            <SlideIn key={service.title} delay={index * 0.1} direction="up">
+              <div ref={el => cardRefs.current[index] = el}>
+                <Card className="minimal-card h-full group hover:border-primary/20 transition-all duration-300">
+                  <CardContent className="p-8">
+                    <div className="flex items-start space-x-4 mb-6">
+                      <div className="flex-shrink-0">
+                        <div className="p-3 bg-muted rounded-xl border">
+                          <service.icon className="h-6 w-6 text-muted-foreground" />
+                        </div>
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-lg font-michroma font-medium mb-3 text-foreground">
+                          {service.title}
+                        </h3>
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          {service.description}
+                        </p>
                       </div>
                     </div>
-                    <div className="flex-1">
-                      <h3 className="text-lg font-michroma font-medium mb-3 text-neutral-900">
-                        {service.title}
-                      </h3>
-                      <p className="text-sm text-neutral-600 leading-relaxed">
-                        {service.description}
-                      </p>
+                    
+                    <div className="p-4 bg-muted/50 rounded-xl border">
+                      {service.visual}
                     </div>
-                  </div>
-                  
-                  <div className="p-4 bg-neutral-50 rounded-xl border border-neutral-100">
-                    {service.visual}
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </SlideIn>
           ))}
         </div>
       </div>
