@@ -11,6 +11,7 @@ const ServicesSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const frontendSquareRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const chartData = [45, 75, 90, 60, 85, 70];
 
@@ -42,15 +43,15 @@ const ServicesSection = () => {
       visual: (
         <div className="h-24 w-full flex items-center justify-center relative overflow-hidden">
           <div className="flex items-center space-x-4 relative">
-            <div className="w-5 h-5 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full animate-pulse" />
+            <div className="w-4 h-4 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full animate-pulse" />
             <div className="w-8 h-px bg-gradient-to-r from-green-300 to-emerald-300 relative">
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-60 animate-[shimmer_2s_ease-in-out_infinite]" />
             </div>
-            <div className="w-5 h-5 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }} />
+            <div className="w-4 h-4 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }} />
             <div className="w-8 h-px bg-gradient-to-r from-blue-300 to-cyan-300 relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-60 animate-[shimmer_2s_ease-in-out_infinite_0.5s]" />
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-60 animate-[shimmer_2s_ease-in-out_infinite]" style={{ animationDelay: '0.5s' }} />
             </div>
-            <div className="w-5 h-5 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full animate-pulse" style={{ animationDelay: '1s' }} />
+            <div className="w-4 h-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full animate-pulse" style={{ animationDelay: '1s' }} />
           </div>
         </div>
       )
@@ -61,7 +62,7 @@ const ServicesSection = () => {
       description: "Interfaces responsivas com tecnologias modernas.",
       visual: (
         <div className="h-24 w-full flex items-center justify-center">
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid grid-cols-3 gap-2 relative">
             {[
               'from-red-500 to-orange-500',
               'from-blue-500 to-purple-500', 
@@ -72,10 +73,8 @@ const ServicesSection = () => {
             ].map((gradient, index) => (
               <div 
                 key={index}
+                ref={el => frontendSquareRefs.current[index] = el}
                 className={`w-6 h-6 bg-gradient-to-br ${gradient} rounded shadow-sm`}
-                style={{
-                  animation: `colorShift 3s ease-in-out infinite ${index * 0.5}s`
-                }}
               />
             ))}
           </div>
@@ -88,15 +87,15 @@ const ServicesSection = () => {
       description: "Soluções que otimizam fluxos de trabalho empresariais.",
       visual: (
         <div className="h-24 w-full flex items-center justify-center relative">
-          <div className="space-y-3">
+          <div className="space-y-2">
             {[
               { color: 'from-blue-500 to-purple-500', width: 'w-16' },
               { color: 'from-green-500 to-teal-500', width: 'w-20' },
-              { color: 'from-orange-500 to-red-500', width: 'w-12' }
+              { color: 'from-orange-500 to-red-500', width: 'w-14' }
             ].map((item, index) => (
               <div key={index} className="flex items-center space-x-2">
-                <div className={`w-1.5 h-1.5 bg-gradient-to-r ${item.color} rounded-full animate-pulse`} style={{ animationDelay: `${index * 0.3}s` }} />
-                <div className={`${item.width} h-px bg-gradient-to-r ${item.color.replace('500', '300')} rounded`} style={{
+                <div className={`w-2 h-2 bg-gradient-to-r ${item.color} rounded-full animate-pulse`} style={{ animationDelay: `${index * 0.3}s` }} />
+                <div className={`${item.width} h-0.5 bg-gradient-to-r ${item.color.replace('500', '300')} rounded-full`} style={{
                   animation: `flowLine 2s ease-in-out infinite ${index * 0.4}s`
                 }} />
               </div>
@@ -141,6 +140,40 @@ const ServicesSection = () => {
           );
         }
       });
+
+      // Animate frontend squares smoothly swapping positions
+      if (frontendSquareRefs.current.length > 0) {
+        const squares = frontendSquareRefs.current.filter(Boolean);
+        
+        const swapAnimation = () => {
+          const timeline = gsap.timeline({
+            repeat: -1,
+            repeatDelay: 1
+          });
+
+          // Create smooth position swapping
+          squares.forEach((square, index) => {
+            const nextIndex = (index + 1) % squares.length;
+            const currentPos = { x: 0, y: 0 };
+            
+            timeline.to(square, {
+              x: Math.cos(index * Math.PI / 3) * 8,
+              y: Math.sin(index * Math.PI / 3) * 8,
+              duration: 1.5,
+              ease: "power2.inOut",
+            }, index * 0.2);
+          });
+
+          timeline.to(squares, {
+            x: 0,
+            y: 0,
+            duration: 1.5,
+            ease: "power2.inOut",
+          }, "+=0.5");
+        };
+
+        swapAnimation();
+      }
     }, sectionRef);
 
     return () => {
