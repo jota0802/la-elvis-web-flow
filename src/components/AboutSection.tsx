@@ -278,7 +278,7 @@ const AboutSection = () => {
             {/* Aurora como fundo */}
             <div className="absolute inset-0 z-0 blur-sm">
               <Aurora
-                colorStops={["#3A29FF", "#FF94B4", "#FF3232"]}
+                colorStops={["#3381ff", "#ff4dcc", "#fc1921"]}
                 blend={0.4}
                 amplitude={0.6}
                 speed={0.5}
