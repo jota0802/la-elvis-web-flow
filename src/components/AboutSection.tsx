@@ -2,6 +2,7 @@
 import { useEffect, useRef } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { GlareCard } from '@/components/ui/glare-card';
 import { Github, ExternalLink, Linkedin, Instagram } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -162,49 +163,51 @@ const AboutSection = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
             {teamMembers.map((member, index) => (
-              <Card key={index} className="minimal-card border-0 shadow-sm group">
-                <CardContent className="p-6 text-center">
-                  <div className="mb-4">
-                    <div className="w-21 h-auto mx-auto rounded-full overflow-hidden bg-muted">
-                      <img 
-                        src={member.photo} 
-                        alt={member.name}
-                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                      />
+              <GlareCard key={index} className="group">
+                <Card className="minimal-card border-0 shadow-sm">
+                  <CardContent className="p-6 text-center">
+                    <div className="mb-4">
+                      <div className="w-21 h-auto mx-auto rounded-full overflow-hidden bg-muted group-hover:scale-110 transition-transform duration-300">
+                        <img 
+                          src={member.photo} 
+                          alt={member.name}
+                          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                        />
+                      </div>
                     </div>
-                  </div>
-                  
-                  <h4 className="font-michroma font-medium text-sm mb-2 text-foreground">
-                    {member.name}
-                  </h4>
-                  <p className="font-light text-sm mb-4 text-foreground">
-                    {member.cargo}
-                  </p>
-                  <div className="flex justify-center space-x-3">
-                    <a 
-                      href={member.github} 
-                      className="text-muted-foreground hover:text-foreground transition-colors"
-                      aria-label="GitHub"
-                    >
-                      <Github className="h-4 w-4" />
-                    </a>
-                    <a 
-                      href={member.linkedin} 
-                      className="text-muted-foreground hover:text-foreground transition-colors"
-                      aria-label="LinkedIn"
-                    >
-                      <Linkedin className="h-4 w-4" />
-                    </a>
-                    <a 
-                      href={member.instagram} 
-                      className="text-muted-foreground hover:text-foreground transition-colors"
-                      aria-label="Instagram"
-                    >
-                      <Instagram className="h-4 w-4" />
-                    </a>
-                  </div>
-                </CardContent>
-              </Card>
+                    
+                    <h4 className="font-michroma font-medium text-sm mb-2 text-foreground">
+                      {member.name}
+                    </h4>
+                    <p className="font-light text-sm mb-4 text-foreground">
+                      {member.cargo}
+                    </p>
+                    <div className="flex justify-center space-x-3">
+                      <a 
+                        href={member.github} 
+                        className="text-muted-foreground hover:text-foreground transition-colors group-hover:scale-110 transform"
+                        aria-label="GitHub"
+                      >
+                        <Github className="h-4 w-4" />
+                      </a>
+                      <a 
+                        href={member.linkedin} 
+                        className="text-muted-foreground hover:text-foreground transition-colors group-hover:scale-110 transform"
+                        aria-label="LinkedIn"
+                      >
+                        <Linkedin className="h-4 w-4" />
+                      </a>
+                      <a 
+                        href={member.instagram} 
+                        className="text-muted-foreground hover:text-foreground transition-colors group-hover:scale-110 transform"
+                        aria-label="Instagram"
+                      >
+                        <Instagram className="h-4 w-4" />
+                      </a>
+                    </div>
+                  </CardContent>
+                </Card>
+              </GlareCard>
             ))}
           </div>
         </div>

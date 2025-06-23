@@ -1,5 +1,7 @@
+
 import { useEffect, useRef } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
+import { GlareCard } from '@/components/ui/glare-card';
 import { 
   SiReact, 
   SiTypescript, 
@@ -23,17 +25,20 @@ const TechnologiesSection = () => {
     { 
       name: "React", 
       category: "Frontend",
-       logo: <SiReact className="w-8 h-8 text-[#61dafb]" />
+      logo: <SiReact className="w-8 h-8 text-[#61dafb]" />,
+      gradient: "from-cyan-400 to-blue-500"
     },
     { 
       name: "TypeScript", 
       category: "Language",
-      logo: <SiTypescript className="w-8 h-8 text-[#3178c6]" />
+      logo: <SiTypescript className="w-8 h-8 text-[#3178c6]" />,
+      gradient: "from-blue-500 to-indigo-600"
     },
     { 
       name: "Supabase", 
       category: "Backend",
-      logo: <SiSupabase className="w-8 h-8 text-[#3ecf8e]" />
+      logo: <SiSupabase className="w-8 h-8 text-[#3ecf8e]" />,
+      gradient: "from-green-400 to-emerald-500"
     },
     { 
       name: "GSAP", 
@@ -45,27 +50,32 @@ const TechnologiesSection = () => {
           <path fill="#0ae448" d="m59.096 29.012.037-27.932a.525.525 0 0 0-.529-.533h-8.738c-.294 0-.423.252-.507.42L36.707 28.842v.005l-.005.006c-.14.343.126.71.497.71h6.108c.33 0 .548-.1.656-.308l1.213-2.915c.149-.388.177-.424.601-.424h5.836c.406 0 .415.008.408.405l-.131 2.71a.525.525 0 0 0 .529.532h6.17a.522.522 0 0 0 .403-.182.458.458 0 0 0 .104-.369Zm-10.81-9.326c-.057 0-.102-.001-.138-.005a.146.146 0 0 1-.13-.183c.012-.041.029-.095.053-.163l4.377-10.827c.038-.107.086-.212.136-.314.071-.145.157-.155.184-.047.023.09-.502 11.118-.502 11.118-.041.413-.06.43-.467.464l-3.509-.041h-.008l.003-.002Z"/>
           <path fill="#0ae448" d="M71.545.547h-4.639c-.245 0-.52.13-.585.422l-6.455 28.029a.423.423 0 0 0 .088.364.572.572 0 0 0 .437.202h5.798c.311 0 .525-.153.583-.418 0 0 .703-3.168.704-3.178.05-.247-.036-.439-.258-.555-.105-.054-.209-.108-.312-.163l-1.005-.522-1-.522-.387-.201a.186.186 0 0 1-.102-.17.199.199 0 0 1 .198-.194l3.178.014c.95.005 1.901-.062 2.836-.234 6.58-1.215 10.95-6.485 11.076-13.656.107-6.12-3.309-9.221-10.15-9.221l-.005.003Zm-1.579 16.68h-.124c-.278 0-.328-.03-.337-.04-.004-.007 1.833-8.073 1.834-8.084.047-.233.045-.367-.099-.446-.184-.102-2.866-1.516-2.866-1.516a.188.188 0 0 1-.101-.172.197.197 0 0 1 .197-.192h4.241c1.32.04 2.056 1.221 2.021 3.237-.061 3.492-1.721 7.09-4.766 7.214Z"/>
         </svg>
-      )
+      ),
+      gradient: "from-green-400 to-lime-500"
     },
     { 
       name: "Tailwind CSS", 
       category: "Styling",
-      logo: <SiTailwindcss className="w-8 h-8 text-[#06b6d4]" />
+      logo: <SiTailwindcss className="w-8 h-8 text-[#06b6d4]" />,
+      gradient: "from-sky-400 to-cyan-500"
     },
     { 
       name: "Vite", 
       category: "Build Tool",
-      logo: <SiVite className="w-8 h-8 text-[#646cff]" />
+      logo: <SiVite className="w-8 h-8 text-[#646cff]" />,
+      gradient: "from-purple-400 to-indigo-500"
     },
     { 
       name: "Node.js", 
       category: "Runtime",
-      logo: <SiNodedotjs className="w-8 h-8 text-[#339933]" />
+      logo: <SiNodedotjs className="w-8 h-8 text-[#339933]" />,
+      gradient: "from-green-500 to-emerald-600"
     },
     { 
       name: "PostgreSQL", 
       category: "Database",
-      logo: <SiPostgresql className="w-8 h-8 text-[#336791]" />
+      logo: <SiPostgresql className="w-8 h-8 text-[#336791]" />,
+      gradient: "from-blue-600 to-slate-700"
     }
   ];
 
@@ -126,22 +136,31 @@ const TechnologiesSection = () => {
 
         <div ref={gridRef} className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
           {technologies.map((tech) => (
-            <Card 
-              key={tech.name} 
-              className="minimal-card minimal-hover cursor-pointer"
-            >
-              <CardContent className="p-6 text-center">
-                <div className="w-12 h-12 mx-auto mb-4 flex items-center justify-center">
-                  {tech.logo}
-                </div>
-                <h3 className="font-michroma font-medium text-sm mb-2 text-foreground">
-                  {tech.name}
-                </h3>
-                <p className="text-xs text-muted-foreground">
-                  {tech.category}
-                </p>
-              </CardContent>
-            </Card>
+            <GlareCard key={tech.name} className="group">
+              <Card className="minimal-card minimal-hover cursor-pointer relative overflow-hidden border-0 bg-white/80 backdrop-blur-sm">
+                {/* Gradient background on hover */}
+                <div className={`absolute inset-0 bg-gradient-to-br ${tech.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-300`} />
+                
+                {/* Animated border */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+                
+                <CardContent className="p-6 text-center relative z-10">
+                  <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center rounded-xl bg-white/50 group-hover:bg-white/80 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3">
+                    {tech.logo}
+                  </div>
+                  <h3 className="font-michroma font-medium text-sm mb-2 text-foreground group-hover:text-gray-800 transition-colors">
+                    {tech.name}
+                  </h3>
+                  <p className="text-xs text-muted-foreground group-hover:text-gray-600 transition-colors">
+                    {tech.category}
+                  </p>
+                  
+                  {/* Floating particles effect */}
+                  <div className="absolute top-2 right-2 w-2 h-2 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse" />
+                  <div className="absolute bottom-2 left-2 w-1 h-1 bg-gradient-to-r from-green-400 to-blue-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse delay-150" />
+                </CardContent>
+              </Card>
+            </GlareCard>
           ))}
         </div>
       </div>

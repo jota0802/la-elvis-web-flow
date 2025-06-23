@@ -16,14 +16,14 @@ interface InteractiveGridPatternProps {
 
 export function InteractiveGridPattern({
   className,
-  width = 60,
-  height = 60,
+  width = 80,
+  height = 80,
   x = -1,
   y = -1,
   strokeDasharray = "0",
-  numSquares = 50,
-  maxOpacity = 0.4,
-  duration = 3,
+  numSquares = 25,
+  maxOpacity = 0.5,
+  duration = 4,
   ...props
 }: InteractiveGridPatternProps) {
   const patternRef = useRef<SVGSVGElement>(null);
@@ -32,17 +32,17 @@ export function InteractiveGridPattern({
   useEffect(() => {
     const squares = squareRefs.current;
     
-    // Add CSS animation for Z-axis effect
+    // Simple Z-axis depth animation
     const style = document.createElement('style');
     style.textContent = `
-      @keyframes gridDepthPulse {
+      @keyframes depthPulse {
         0%, 100% { 
           opacity: 0.1; 
-          transform: scale(1) translateZ(0px);
+          transform: scale(1);
         }
         50% { 
           opacity: ${maxOpacity}; 
-          transform: scale(1.1) translateZ(10px);
+          transform: scale(1.15);
         }
       }
     `;
@@ -52,7 +52,7 @@ export function InteractiveGridPattern({
     squares.forEach((square, index) => {
       if (square) {
         const delay = (index % numSquares) * (duration / numSquares);
-        square.style.animation = `gridDepthPulse ${duration}s ease-in-out ${delay}s infinite`;
+        square.style.animation = `depthPulse ${duration}s ease-in-out ${delay}s infinite`;
       }
     });
 
@@ -61,12 +61,14 @@ export function InteractiveGridPattern({
     };
   }, [numSquares, duration, maxOpacity]);
 
+  const gridSize = Math.ceil(Math.sqrt(numSquares));
+
   return (
     <svg
       ref={patternRef}
       aria-hidden="true"
       className={cn(
-        "absolute inset-0 h-full w-full fill-gray-400/20 stroke-gray-400/30",
+        "absolute inset-0 h-full w-full fill-gray-400/20 stroke-gray-400/20",
         className
       )}
       {...props}
@@ -91,23 +93,24 @@ export function InteractiveGridPattern({
       
       <rect width="100%" height="100%" fill="url(#interactive-grid-pattern)" />
       
-      {/* Grid squares with Z-axis animation */}
+      {/* Animated squares positioned in grid */}
       {Array.from({ length: numSquares }).map((_, i) => {
-        // Position squares within the grid pattern bounds
-        const gridX = (i % Math.floor(Math.sqrt(numSquares))) * (100 / Math.floor(Math.sqrt(numSquares)));
-        const gridY = Math.floor(i / Math.floor(Math.sqrt(numSquares))) * (100 / Math.floor(Math.sqrt(numSquares)));
+        const row = Math.floor(i / gridSize);
+        const col = i % gridSize;
+        const x = (col / gridSize) * 100;
+        const y = (row / gridSize) * 100;
         
         return (
           <rect
             key={i}
             ref={(el) => (squareRefs.current[i] = el)}
-            width={width * 0.6}
-            height={height * 0.6}
-            x={`${gridX}%`}
-            y={`${gridY}%`}
+            width={width * 0.4}
+            height={height * 0.4}
+            x={`${x}%`}
+            y={`${y}%`}
             fill="currentColor"
             strokeWidth="0"
-            className="transition-all duration-300"
+            className="opacity-20"
           />
         );
       })}
