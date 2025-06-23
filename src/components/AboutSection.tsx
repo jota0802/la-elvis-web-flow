@@ -90,36 +90,41 @@ const AboutSection = () => {
 
   const teamMembers = [
     {
-      name: "Membro 1",
-      photo: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&h=400&fit=crop&crop=face",
+      name: "Jota",
+      photo: "https://i.pinimg.com/736x/84/64/87/8464870bd9deadaebf1e0d7a82546b4f.jpg",
+      cargo: "Dev Front-end",
       github: "#",
       linkedin: "#",
       instagram: "#"
     },
     {
-      name: "Membro 2", 
+      name: "Leo Linux", 
       photo: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=400&h=400&fit=crop&crop=face",
+      cargo: "Dev Back-end",
       github: "#",
       linkedin: "#",
       instagram: "#"
     },
     {
-      name: "Membro 3",
+      name: "Morais",
       photo: "https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=400&h=400&fit=crop&crop=face", 
+      cargo: "Dev Back-end",
       github: "#",
       linkedin: "#",
       instagram: "#"
     },
     {
-      name: "Membro 4",
+      name: "Murilo",
       photo: "https://images.unsplash.com/photo-1518005020951-eccb494ad742?w=400&h=400&fit=crop&crop=face",
+      cargo: "Dev DB",
       github: "#",
       linkedin: "#", 
       instagram: "#"
     },
     {
-      name: "Membro 5",
+      name: "Leozika",
       photo: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=400&h=400&fit=crop&crop=face",
+      cargo: "Dev DB",
       github: "#",
       linkedin: "#",
       instagram: "#"
@@ -134,7 +139,7 @@ const AboutSection = () => {
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-michroma font-light mb-8">
             Sobre a <span className="minimal-accent">La Elvis Tech</span>
           </h2>
-          <div className="max-w-3xl space-y-6 text-base text-muted-foreground leading-relaxed">
+          <div className="max-w-3xl space-y-6 text-md md:text-lg lg:text-xl text-muted-foreground leading-relaxed">
             <p>
               Um grupo de 5 desenvolvedores, apaixonados por tecnologia, inovação e memes que formam a equipe La Elvis Tech hoje.
             </p>
@@ -144,39 +149,23 @@ const AboutSection = () => {
           </div>
         </div>
 
-        {/* Stats minimalistas */}
-        <div ref={statsRef} className="flex justify-center mb-20">
-          <div className="flex space-x-16">
-            {stats.map((stat, index) => (
-              <div key={stat.label} className="text-center">
-                <div className="text-3xl font-michroma font-light text-primary mb-2">
-                  {stat.value}
-                </div>
-                <p className="text-sm text-muted-foreground uppercase tracking-wide">
-                  {stat.label}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Seção da Equipe */}
+         {/* Seção da Equipe */}
         <div ref={teamRef} className="mb-20">
-          <div className="text-center mb-12">
-            <h3 className="text-2xl md:text-3xl font-michroma font-light mb-4">
+          <div className=" mb-12">
+            <h3 className="text-3xl md:text-4xl lg:text-5xl text-end font-michroma font-light mb-4">
               Equipe <span className="minimal-accent">La Elvis Tech</span>
             </h3>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-md md:text-lg lg:text-xl text-end text-muted-foreground mx-auto">
               Conheça os desenvolvedores por trás do projeto
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
             {teamMembers.map((member, index) => (
               <Card key={index} className="minimal-card border-0 shadow-sm group">
                 <CardContent className="p-6 text-center">
                   <div className="mb-4">
-                    <div className="w-20 h-20 mx-auto rounded-full overflow-hidden bg-muted">
+                    <div className="w-21 h-auto mx-auto rounded-full overflow-hidden bg-muted">
                       <img 
                         src={member.photo} 
                         alt={member.name}
@@ -185,10 +174,12 @@ const AboutSection = () => {
                     </div>
                   </div>
                   
-                  <h4 className="font-michroma font-medium text-sm mb-4 text-foreground">
+                  <h4 className="font-michroma font-medium text-sm mb-2 text-foreground">
                     {member.name}
                   </h4>
-                  
+                  <p className="font-light text-sm mb-4 text-foreground">
+                    {member.cargo}
+                  </p>
                   <div className="flex justify-center space-x-3">
                     <a 
                       href={member.github} 
@@ -214,6 +205,22 @@ const AboutSection = () => {
                   </div>
                 </CardContent>
               </Card>
+            ))}
+          </div>
+        </div>
+
+        {/* Stats minimalistas */}
+        <div ref={statsRef} className="flex justify-center mb-14 md:mb-20">
+          <div className="flex flex-col md:flex-row  space-x-0 space-y-4 md:space-x-16 md:space-y-0">
+            {stats.map((stat, index) => (
+              <div key={stat.label} className="text-center">
+                <div className="text-3xl font-michroma font-light text-primary mb-2">
+                  {stat.value}
+                </div>
+                <p className="text-sm text-muted-foreground uppercase tracking-wide">
+                  {stat.label}
+                </p>
+              </div>
             ))}
           </div>
         </div>
