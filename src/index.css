@@ -163,6 +163,18 @@
   }
 }
 
+/* Grid Pattern Animation */
+@keyframes gridPulse {
+  0%, 100% { 
+    opacity: 0.1; 
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 0.5; 
+    transform: scale(1.1);
+  }
+}
+
 /* Novas animações para os cards de serviços */
 @keyframes chartPulse {
   0%, 100% {

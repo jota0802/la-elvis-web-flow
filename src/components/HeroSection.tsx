@@ -2,6 +2,7 @@
 import { useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowDown } from 'lucide-react';
+import { InteractiveGridPattern } from '@/components/ui/interactive-grid-pattern';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -63,17 +64,13 @@ const HeroSection = () => {
 
   return (
     <section id="home" ref={heroRef} className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden bg-white">
-      {/* Grid minimalista */}
-      <div className="absolute inset-0 opacity-20">
-        <div 
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `
-              linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
-              linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px)
-            `,
-            backgroundSize: '60px 60px',
-          }}
+      {/* Interactive Grid Pattern Background */}
+      <div className="absolute inset-0 transform -skew-y-12 origin-top-left">
+        <InteractiveGridPattern
+          numSquares={30}
+          maxOpacity={0.3}
+          duration={3}
+          className="text-neutral-400 [mask-image:radial-gradient(300px_circle_at_center,white,transparent)]"
         />
       </div>
 
