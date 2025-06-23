@@ -1,4 +1,3 @@
-
 import { useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowDown } from 'lucide-react';
@@ -10,6 +9,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const HeroSection = () => {
   const heroRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
   const logoRef = useRef<HTMLImageElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
@@ -63,18 +63,23 @@ const HeroSection = () => {
   };
 
   return (
-    <section id="home" ref={heroRef} className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden bg-white">
-      {/* Interactive Grid Pattern Background */}
-      <div className="absolute inset-0 transform -skew-y-12 origin-top-left">
+    <section id="home" ref={sectionRef} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-background via-muted/20 to-background">
+      {/* Interactive Grid Background - larger and more prominent */}
+      <div className="absolute inset-0 opacity-60">
         <InteractiveGridPattern
-          numSquares={30}
-          maxOpacity={0.3}
-          duration={3}
-          className="text-neutral-400 [mask-image:radial-gradient(300px_circle_at_center,white,transparent)]"
+          width={80}
+          height={80}
+          numSquares={100}
+          maxOpacity={0.7}
+          duration={4}
+          className="[mask-image:radial-gradient(ellipse_at_center,white_40%,transparent_80%)] skew-y-12 -rotate-12 scale-110"
         />
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      {/* Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/50 pointer-events-none" />
+
+      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="text-center max-w-4xl mx-auto">
           
           {/* Logo */}
