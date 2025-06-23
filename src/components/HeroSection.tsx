@@ -70,9 +70,9 @@ const HeroSection = () => {
         <InteractiveGridPattern
           width={100}
           height={100}
-          numSquares={36}
+          numSquares={30}
           maxOpacity={0.6}
-          duration={4}
+          duration={3}
           className="[mask-image:radial-gradient(ellipse_at_center,white_60%,transparent_90%)] skew-y-6 -rotate-6 scale-105"
         />
       </div>

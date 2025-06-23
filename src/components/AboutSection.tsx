@@ -100,7 +100,7 @@ const AboutSection = () => {
     },
     {
       name: "Leo Linux", 
-      photo: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=400&h=400&fit=crop&crop=face",
+      photo: "/public/leolinux.jpg",
       cargo: "Dev Back-end",
       github: "#",
       linkedin: "#",
@@ -108,7 +108,7 @@ const AboutSection = () => {
     },
     {
       name: "Morais",
-      photo: "https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=400&h=400&fit=crop&crop=face", 
+      photo: "/public/morais.jpg", 
       cargo: "Dev Back-end",
       github: "#",
       linkedin: "#",
@@ -116,7 +116,7 @@ const AboutSection = () => {
     },
     {
       name: "Murilo",
-      photo: "https://images.unsplash.com/photo-1518005020951-eccb494ad742?w=400&h=400&fit=crop&crop=face",
+      photo: "/public/murilo.jpg",
       cargo: "Dev DB",
       github: "#",
       linkedin: "#", 
@@ -124,7 +124,7 @@ const AboutSection = () => {
     },
     {
       name: "Leozika",
-      photo: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=400&h=400&fit=crop&crop=face",
+      photo: "/public/leozika.jpg",
       cargo: "Dev DB",
       github: "#",
       linkedin: "#",
@@ -167,11 +167,11 @@ const AboutSection = () => {
                 <Card className="minimal-card border-0 shadow-sm">
                   <CardContent className="p-6 text-center">
                     <div className="mb-4">
-                      <div className="w-21 h-auto mx-auto rounded-full overflow-hidden bg-muted group-hover:scale-110 transition-transform duration-300">
+                      <div className="w-21 h-21 mx-auto rounded-md overflow-hidden bg-muted group-hover:scale-105 transition-transform duration-300">
                         <img 
                           src={member.photo} 
                           alt={member.name}
-                          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                          className="w-full h-auto max-h-[300px] aspect-square object-fill transition-transform duration-500 group-hover:scale-105"
                         />
                       </div>
                     </div>

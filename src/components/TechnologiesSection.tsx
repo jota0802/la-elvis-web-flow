@@ -1,7 +1,5 @@
-
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { GlareCard } from '@/components/ui/glare-card';
 import { 
   SiReact, 
   SiTypescript, 
@@ -20,25 +18,26 @@ const TechnologiesSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
+  const [hoveredTech, setHoveredTech] = useState<string | null>(null);
 
   const technologies = [
     { 
       name: "React", 
       category: "Frontend",
       logo: <SiReact className="w-8 h-8 text-[#61dafb]" />,
-      gradient: "from-cyan-400 to-blue-500"
+      color: "#61dafb"
     },
     { 
       name: "TypeScript", 
       category: "Language",
       logo: <SiTypescript className="w-8 h-8 text-[#3178c6]" />,
-      gradient: "from-blue-500 to-indigo-600"
+      color: "#3178c6"
     },
     { 
       name: "Supabase", 
       category: "Backend",
       logo: <SiSupabase className="w-8 h-8 text-[#3ecf8e]" />,
-      gradient: "from-green-400 to-emerald-500"
+      color: "#3ecf8e"
     },
     { 
       name: "GSAP", 
@@ -51,63 +50,78 @@ const TechnologiesSection = () => {
           <path fill="#0ae448" d="M71.545.547h-4.639c-.245 0-.52.13-.585.422l-6.455 28.029a.423.423 0 0 0 .088.364.572.572 0 0 0 .437.202h5.798c.311 0 .525-.153.583-.418 0 0 .703-3.168.704-3.178.05-.247-.036-.439-.258-.555-.105-.054-.209-.108-.312-.163l-1.005-.522-1-.522-.387-.201a.186.186 0 0 1-.102-.17.199.199 0 0 1 .198-.194l3.178.014c.95.005 1.901-.062 2.836-.234 6.58-1.215 10.95-6.485 11.076-13.656.107-6.12-3.309-9.221-10.15-9.221l-.005.003Zm-1.579 16.68h-.124c-.278 0-.328-.03-.337-.04-.004-.007 1.833-8.073 1.834-8.084.047-.233.045-.367-.099-.446-.184-.102-2.866-1.516-2.866-1.516a.188.188 0 0 1-.101-.172.197.197 0 0 1 .197-.192h4.241c1.32.04 2.056 1.221 2.021 3.237-.061 3.492-1.721 7.09-4.766 7.214Z"/>
         </svg>
       ),
-      gradient: "from-green-400 to-lime-500"
+      color: "#0ae448"
     },
     { 
       name: "Tailwind CSS", 
       category: "Styling",
       logo: <SiTailwindcss className="w-8 h-8 text-[#06b6d4]" />,
-      gradient: "from-sky-400 to-cyan-500"
+      color: "#06b6d4"
     },
     { 
       name: "Vite", 
       category: "Build Tool",
       logo: <SiVite className="w-8 h-8 text-[#646cff]" />,
-      gradient: "from-purple-400 to-indigo-500"
+      color: "#646cff"
     },
     { 
       name: "Node.js", 
       category: "Runtime",
       logo: <SiNodedotjs className="w-8 h-8 text-[#339933]" />,
-      gradient: "from-green-500 to-emerald-600"
+      color: "#339933"
     },
     { 
       name: "PostgreSQL", 
       category: "Database",
       logo: <SiPostgresql className="w-8 h-8 text-[#336791]" />,
-      gradient: "from-blue-600 to-slate-700"
+      color: "#336791"
     }
   ];
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+      // Animação molecular para o título
       gsap.fromTo(titleRef.current,
-        { opacity: 0, y: 30 },
+        { opacity: 0, scale: 0.8, filter: "blur(5px)" },
         {
           opacity: 1,
-          y: 0,
-          duration: 0.8,
-          ease: "power2.out",
+          scale: 1,
+          filter: "blur(0px)",
+          duration: 1.2,
+          ease: "elastic.out(1, 0.8)",
           scrollTrigger: {
             trigger: titleRef.current,
-            start: "top 80%",
+            start: "top 85%",
           }
         }
       );
 
+      // Animação de partículas para os cards
       if (gridRef.current) {
         const cards = gridRef.current.children;
+        
         gsap.fromTo(cards,
-          { opacity: 0, y: 20 },
+          { 
+            opacity: 0,
+            y: 40,
+            scale: 0.7,
+            filter: "blur(10px)"
+          },
           {
             opacity: 1,
             y: 0,
-            duration: 0.6,
-            stagger: 0.08,
-            ease: "power2.out",
+            scale: 1,
+            filter: "blur(0px)",
+            duration: 0.8,
+            stagger: {
+              each: 0.1,
+              from: "random",
+              grid: "auto"
+            },
+            ease: "back.out(1.2)",
             scrollTrigger: {
               trigger: gridRef.current,
-              start: "top 85%",
+              start: "top 90%",
             }
           }
         );
@@ -119,48 +133,110 @@ const TechnologiesSection = () => {
     };
   }, []);
 
+  // Gerador de partículas flutuantes
+  const Particle = ({ color }: { color: string }) => {
+    const size = Math.random() * 4 + 1;
+    return (
+      <div 
+        className="absolute rounded-full animate-float"
+        style={{
+          background: color,
+          width: `${size}px`,
+          height: `${size}px`,
+          left: `${Math.random() * 100}%`,
+          top: `${Math.random() * 100}%`,
+          opacity: Math.random() * 0.6 + 0.2,
+          animationDuration: `${Math.random() * 6 + 4}s`,
+          animationDelay: `${Math.random() * 2}s`
+        }}
+      />
+    );
+  };
+
   return (
-    <section id="tech" ref={sectionRef} className="py-20 lg:py-32 bg-minimal-gradient">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section 
+      id="tech" 
+      ref={sectionRef} 
+      className="py-20 lg:py-32 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden"
+    >
+      {/* Partículas de fundo */}
+      <div className="absolute inset-0 pointer-events-none">
+        {Array.from({ length: 30 }).map((_, i) => (
+          <Particle key={i} color="#d1d5db" />
+        ))}
+      </div>
+      
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-16">
           <h2 
             ref={titleRef}
-            className="text-3xl md:text-4xl lg:text-5xl font-michroma font-light mb-6"
+            className="text-3xl md:text-4xl lg:text-5xl font-michroma font-light mb-6 text-transparent bg-clip-text bg-gradient-to-r from-gray-800 to-gray-600"
           >
-            Tecnologias & <span className="minimal-accent">Ferramentas</span>
+            <span className="inline-block mr-2">Tecnologias & Ferramentas</span>
           </h2>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Stack moderno e confiável para soluções robustas
+          <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
+            Stack moderno para soluções de alta performance
           </p>
         </div>
 
-        <div ref={gridRef} className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5 max-w-6xl mx-auto">
           {technologies.map((tech) => (
-            <GlareCard key={tech.name} className="group">
-              <Card className="minimal-card minimal-hover cursor-pointer relative overflow-hidden border-0 bg-white/80 backdrop-blur-sm">
-                {/* Gradient background on hover */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${tech.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-300`} />
+            <div 
+              key={tech.name}
+              className="relative"
+              onMouseEnter={() => setHoveredTech(tech.name)}
+              onMouseLeave={() => setHoveredTech(null)}
+            >
+              {/* Efeito de partículas ativas */}
+              {hoveredTech === tech.name && (
+                <div className="absolute inset-0 pointer-events-none">
+                  {Array.from({ length: 15 }).map((_, i) => (
+                    <Particle key={i} color={tech.color} />
+                  ))}
+                </div>
+              )}
+              
+              <Card className="relative overflow-hidden border border-gray-200 bg-white/90 backdrop-blur-md transition-all duration-500 hover:shadow-xl hover:scale-[1.02] py-10">
+                {/* Efeito de brilho sutil */}
+                <div 
+                  className="absolute inset-0 opacity-0 transition-opacity duration-300 pointer-events-none"
+                  style={{
+                    background: `radial-gradient(circle at center, ${tech.color}20, transparent 70%)`,
+                    opacity: hoveredTech === tech.name ? 1 : 0
+                  }}
+                />
                 
-                {/* Animated border */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-                
-                <CardContent className="p-6 text-center relative z-10">
-                  <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center rounded-xl bg-white/50 group-hover:bg-white/80 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3">
+                <CardContent className="p-6 text-center">
+                  <div 
+                    className="w-16 h-16 mx-auto mb-4 flex items-center justify-center rounded-xl bg-white transition-all duration-500"
+                    style={{
+                      boxShadow: hoveredTech === tech.name 
+                        ? `0 0 0 4px white, 0 0 0 6px ${tech.color}40` 
+                        : '0 4px 12px rgba(0,0,0,0.05)',
+                      transform: hoveredTech === tech.name ? 'rotate(5deg) scale(1.1)' : 'rotate(0)'
+                    }}
+                  >
                     {tech.logo}
                   </div>
-                  <h3 className="font-michroma font-medium text-sm mb-2 text-foreground group-hover:text-gray-800 transition-colors">
+                  <h3 className="font-michroma font-medium text-sm mb-1 text-gray-800">
                     {tech.name}
                   </h3>
-                  <p className="text-xs text-muted-foreground group-hover:text-gray-600 transition-colors">
+                  <p className="text-xs text-gray-500">
                     {tech.category}
                   </p>
                   
-                  {/* Floating particles effect */}
-                  <div className="absolute top-2 right-2 w-2 h-2 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse" />
-                  <div className="absolute bottom-2 left-2 w-1 h-1 bg-gradient-to-r from-green-400 to-blue-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse delay-150" />
+                  {/* Linha de conexão animada */}
+                  <div 
+                    className="absolute bottom-0 left-1/2 h-0.5 bg-gradient-to-r from-transparent to-transparent transition-all duration-500"
+                    style={{
+                      width: hoveredTech === tech.name ? '80%' : '0%',
+                      left: hoveredTech === tech.name ? '10%' : '50%',
+                      background: `linear-gradient(to right, transparent, ${tech.color}, transparent)`
+                    }}
+                  />
                 </CardContent>
               </Card>
-            </GlareCard>
+            </div>
           ))}
         </div>
       </div>

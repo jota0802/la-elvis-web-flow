@@ -1,4 +1,3 @@
-
 import { cn } from "@/lib/utils";
 import { useEffect, useRef } from "react";
 
@@ -16,12 +15,12 @@ interface InteractiveGridPatternProps {
 
 export function InteractiveGridPattern({
   className,
-  width = 80,
-  height = 80,
-  x = -1,
-  y = -1,
+  width = 40,
+  height = 40,
+  x = 0,
+  y = 0,
   strokeDasharray = "0",
-  numSquares = 25,
+  numSquares = 30,
   maxOpacity = 0.5,
   duration = 4,
   ...props
@@ -32,43 +31,38 @@ export function InteractiveGridPattern({
   useEffect(() => {
     const squares = squareRefs.current;
     
-    // Simple Z-axis depth animation
+    const animateSquares = () => {
+      squares.forEach((square, index) => {
+        if (square) {
+          const delay = (index % numSquares) * (duration / numSquares);
+          square.style.animation = `gridPulse ${duration}s ease-in-out ${delay}s infinite`;
+        }
+      });
+    };
+
+    // Add CSS animation
     const style = document.createElement('style');
     style.textContent = `
-      @keyframes depthPulse {
-        0%, 100% { 
-          opacity: 0.1; 
-          transform: scale(1);
-        }
-        50% { 
-          opacity: ${maxOpacity}; 
-          transform: scale(1.15);
-        }
+      @keyframes gridPulse {
+        0%, 100% { opacity: 0.1; }
+        50% { opacity: ${maxOpacity}; }
       }
     `;
     document.head.appendChild(style);
 
-    // Apply staggered animation to squares
-    squares.forEach((square, index) => {
-      if (square) {
-        const delay = (index % numSquares) * (duration / numSquares);
-        square.style.animation = `depthPulse ${duration}s ease-in-out ${delay}s infinite`;
-      }
-    });
+    animateSquares();
 
     return () => {
       document.head.removeChild(style);
     };
   }, [numSquares, duration, maxOpacity]);
 
-  const gridSize = Math.ceil(Math.sqrt(numSquares));
-
   return (
     <svg
       ref={patternRef}
       aria-hidden="true"
       className={cn(
-        "absolute inset-0 h-full w-full fill-gray-400/20 stroke-gray-400/20",
+        "pointer-events-none absolute inset-0 h-full w-full fill-gray-400/30 stroke-gray-400/50",
         className
       )}
       {...props}
@@ -86,34 +80,23 @@ export function InteractiveGridPattern({
             d={`M.5 ${height}V.5H${width}`}
             fill="none"
             strokeDasharray={strokeDasharray}
-            strokeWidth="1"
           />
         </pattern>
       </defs>
-      
       <rect width="100%" height="100%" fill="url(#interactive-grid-pattern)" />
-      
-      {/* Animated squares positioned in grid */}
-      {Array.from({ length: numSquares }).map((_, i) => {
-        const row = Math.floor(i / gridSize);
-        const col = i % gridSize;
-        const x = (col / gridSize) * 100;
-        const y = (row / gridSize) * 100;
-        
-        return (
-          <rect
-            key={i}
-            ref={(el) => (squareRefs.current[i] = el)}
-            width={width * 0.4}
-            height={height * 0.4}
-            x={`${x}%`}
-            y={`${y}%`}
-            fill="currentColor"
-            strokeWidth="0"
-            className="opacity-20"
-          />
-        );
-      })}
+      {Array.from({ length: numSquares }).map((_, i) => (
+        <rect
+          key={i}
+          ref={(el) => (squareRefs.current[i] = el)}
+          width={width}
+          height={height}
+          x={Math.random() * 110 + "%"}
+          y={Math.random() * 100 + "%"}
+          fill="currentColor"
+          strokeWidth="0"
+          className="animate-pulse"
+        />
+      ))}
     </svg>
   );
 }
