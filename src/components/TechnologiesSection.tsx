@@ -2,13 +2,13 @@ import { useEffect, useRef, useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { 
   SiReact, 
-  SiTypescript, 
   SiSupabase, 
   SiTailwindcss, 
   SiVite, 
   SiNodedotjs, 
   SiPostgresql 
 } from 'react-icons/si';
+import { BiLogoTypescript } from 'react-icons/bi';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -30,7 +30,7 @@ const TechnologiesSection = () => {
     { 
       name: "TypeScript", 
       category: "Language",
-      logo: <SiTypescript className="w-8 h-8 text-[#3178c6]" />,
+      logo: <BiLogoTypescript className="w-8 h-8 text-[#3178c6]" />,
       color: "#3178c6"
     },
     { 
