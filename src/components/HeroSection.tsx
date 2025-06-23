@@ -1,3 +1,4 @@
+
 import { useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowDown } from 'lucide-react';
@@ -64,15 +65,15 @@ const HeroSection = () => {
 
   return (
     <section id="home" ref={sectionRef} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-background via-muted/20 to-background">
-      {/* Interactive Grid Background - larger and more prominent */}
-      <div className="absolute inset-0 opacity-60">
+      {/* Interactive Grid Background - simplified with Z-axis animation */}
+      <div className="absolute inset-0 opacity-40">
         <InteractiveGridPattern
-          width={80}
-          height={80}
-          numSquares={100}
-          maxOpacity={0.7}
+          width={100}
+          height={100}
+          numSquares={36}
+          maxOpacity={0.6}
           duration={4}
-          className="[mask-image:radial-gradient(ellipse_at_center,white_40%,transparent_80%)] skew-y-12 -rotate-12 scale-110"
+          className="[mask-image:radial-gradient(ellipse_at_center,white_60%,transparent_90%)] skew-y-6 -rotate-6 scale-105"
         />
       </div>
 
