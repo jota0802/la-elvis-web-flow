@@ -67,30 +67,32 @@ const AboutSection = () => {
   }, []);
 
   const stats = [
-    { label: "Projetos", value: "15+" },
-    { label: "Clientes", value: "12+" },
-    { label: "Anos", value: "2+" }
+    { label: "Projeto", value: "1500H" },
+    { label: "IA´s", value: "12+" },
+    { label: "Devs", value: "5+1 Inidano" }
   ];
 
   return (
-    <section id="about" ref={sectionRef} className="py-20 lg:py-32 bg-white">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="about" ref={sectionRef} className="py-10 lg:py-30 bg-white">
+      <div className="container px-4 sm:px-6 lg:px-8">
         {/* Header minimalista */}
-        <div ref={contentRef} className="text-center mb-20">
+        <div ref={contentRef} className=" mb-20">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-michroma font-light mb-8">
             Sobre a <span className="minimal-accent">La Elvis Tech</span>
           </h2>
-          <div className="max-w-3xl mx-auto space-y-6 text-base text-muted-foreground leading-relaxed">
+          <div className="max-w-3xl space-y-6 text-base text-muted-foreground leading-relaxed">
             <p>
-              Especialistas em desenvolvimento web moderno, criamos soluções digitais 
-              que atendem às necessidades específicas de cada cliente.
+              Um grupo de 5 desenvolvedores, apaixonados por tecnologia, inovação e memes que formam a equipe La Elvis Tech hoje.
             </p>
             <p>
-              Nossa abordagem combina design minimalista com funcionalidade robusta, 
-              utilizando tecnologias de ponta para desenvolver desde dashboards 
-              corporativos até aplicações web completas.
+              Neste trabalho em equipe, cada membro trouxe suas habilidades únicas para criar soluções digitais que fazem a diferença.
             </p>
           </div>
+        </div>
+        <div className="flex justify-end">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-michroma font-light mb-8">
+            Equipe <span className="minimal-accent">La Elvis Tech</span>
+          </h2>
         </div>
 
         {/* Stats minimalistas */}
@@ -124,8 +126,8 @@ const AboutSection = () => {
                   Lab Dash Animates
                 </h4>
                 <p className="text-muted-foreground leading-relaxed max-w-lg mx-auto">
-                  Dashboard interativo com animações avançadas e visualizações de dados em tempo real. 
-                  Criado com React, TypeScript e GSAP.
+                  Sistema Web, Abaixo Repositório do Github e Link para o Site <br /> 
+                  - React com Vite e TypeScript.
                 </p>
               </div>
               
@@ -142,7 +144,7 @@ const AboutSection = () => {
                     rel="noopener noreferrer"
                     className="flex items-center gap-2"
                   >
-                    <Github className="h-4 w-4" />
+                  <Github className="h-4 w-4" />
                     GitHub
                   </a>
                 </Button>
@@ -159,7 +161,7 @@ const AboutSection = () => {
                     className="flex items-center gap-2"
                   >
                     <ExternalLink className="h-4 w-4" />
-                    Ver Demo
+                    Ver Site
                   </a>
                 </Button>
               </div>

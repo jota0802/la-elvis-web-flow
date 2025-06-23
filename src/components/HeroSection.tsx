@@ -95,13 +95,13 @@ const HeroSection = () => {
             ref={titleRef}
             className="text-2xl md:text-3xl lg:text-4xl font-michroma font-light leading-tight mb-4 text-neutral-900"
           >
-            Criamos{' '}
+            Como criamos{' '}
             <span className="text-neutral-600">
-              Experiências
+              nosso Projeto
             </span>
             <br />
             <span className="text-xl md:text-2xl lg:text-3xl text-neutral-500">
-              Digitais Únicas
+              La Elvis Tech
             </span>
           </h1>
           
@@ -110,9 +110,9 @@ const HeroSection = () => {
             ref={subtitleRef}
             className="text-sm md:text-base text-neutral-600 max-w-2xl mx-auto mb-10 leading-relaxed"
           >
-            Transformamos suas ideias em{' '}
-            <span className="text-neutral-800 font-medium">soluções web modernas</span>
-            {' '}com design excepcional e tecnologia de ponta
+            passo a passo da nossa {' '}
+            <span className="text-neutral-800 font-medium">solução web</span>
+            {' '} desenvolvida diretamente para DASA
           </p>
 
           {/* CTA minimalista */}
@@ -122,18 +122,18 @@ const HeroSection = () => {
               size="lg"
               className="bg-neutral-900 hover:bg-neutral-800 text-white px-6 py-2 text-sm font-medium transition-all duration-300 hover:scale-105 shadow-lg rounded-md"
             >
-              Explorar Nossos Serviços
+              Ver Trabalho
               <ArrowDown className="ml-2 h-4 w-4" />
             </Button>
             
             <div className="flex items-center gap-6 text-xs text-neutral-500">
               <div className="flex items-center gap-2">
                 <div className="w-1 h-1 bg-neutral-400 rounded-full" />
-                <span>15+ Projetos</span>
+                <span>1500 Horas</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-1 h-1 bg-neutral-400 rounded-full" />
-                <span>2+ Anos</span>
+                <span>5 Integrantes</span>
               </div>
             </div>
           </div>

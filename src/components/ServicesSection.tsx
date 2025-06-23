@@ -181,17 +181,17 @@ const ServicesSection = () => {
   }, []);
 
   return (
-    <section id="services" ref={sectionRef} className="py-20 lg:py-32 bg-white">
+    <section id="services" ref={sectionRef} className="py-0 lg:py-32 bg-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 
             ref={titleRef}
             className="text-3xl md:text-4xl lg:text-5xl font-michroma font-light mb-6"
           >
-            Nossos <span className="minimal-accent">Serviços</span>
+            Resultados em Forma de Tecnologia
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Soluções completas para transformar suas ideias em realidade digital
+            Tecnologia aplicada com propósito para resolver desafio pedido.
           </p>
         </div>
 
@@ -201,11 +201,7 @@ const ServicesSection = () => {
               <Card className="minimal-card h-full group hover:border-primary/20 transition-all duration-300">
                 <CardContent className="p-8">
                   <div className="flex items-start space-x-4 mb-6">
-                    <div className="flex-shrink-0">
-                      <div className="p-3 bg-muted rounded-xl border">
-                        <service.icon className="h-6 w-6 text-muted-foreground" />
-                      </div>
-                    </div>
+                    
                     <div className="flex-1">
                       <h3 className="text-lg font-michroma font-medium mb-3 text-foreground">
                         {service.title}
@@ -216,7 +212,7 @@ const ServicesSection = () => {
                     </div>
                   </div>
                   
-                  <div className="p-4 bg-muted/50 rounded-xl border">
+                  <div className="p-4 bg-muted/20 rounded-lg border">
                     {service.visual}
                   </div>
                 </CardContent>
