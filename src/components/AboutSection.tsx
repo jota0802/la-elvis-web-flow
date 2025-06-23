@@ -2,7 +2,7 @@
 import { useEffect, useRef } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Github, ExternalLink } from 'lucide-react';
+import { Github, ExternalLink, Linkedin, Instagram } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -13,6 +13,7 @@ const AboutSection = () => {
   const contentRef = useRef<HTMLDivElement>(null);
   const statsRef = useRef<HTMLDivElement>(null);
   const projectRef = useRef<HTMLDivElement>(null);
+  const teamRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -59,6 +60,21 @@ const AboutSection = () => {
           }
         }
       );
+
+      gsap.fromTo(teamRef.current,
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          delay: 0.4,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: teamRef.current,
+            start: "top 75%",
+          }
+        }
+      );
     }, sectionRef);
 
     return () => {
@@ -70,6 +86,44 @@ const AboutSection = () => {
     { label: "Projeto", value: "1500H" },
     { label: "IA´s", value: "12+" },
     { label: "Devs", value: "5+1 Inidano" }
+  ];
+
+  const teamMembers = [
+    {
+      name: "Membro 1",
+      photo: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&h=400&fit=crop&crop=face",
+      github: "#",
+      linkedin: "#",
+      instagram: "#"
+    },
+    {
+      name: "Membro 2", 
+      photo: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=400&h=400&fit=crop&crop=face",
+      github: "#",
+      linkedin: "#",
+      instagram: "#"
+    },
+    {
+      name: "Membro 3",
+      photo: "https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=400&h=400&fit=crop&crop=face", 
+      github: "#",
+      linkedin: "#",
+      instagram: "#"
+    },
+    {
+      name: "Membro 4",
+      photo: "https://images.unsplash.com/photo-1518005020951-eccb494ad742?w=400&h=400&fit=crop&crop=face",
+      github: "#",
+      linkedin: "#", 
+      instagram: "#"
+    },
+    {
+      name: "Membro 5",
+      photo: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=400&h=400&fit=crop&crop=face",
+      github: "#",
+      linkedin: "#",
+      instagram: "#"
+    }
   ];
 
   return (
@@ -89,11 +143,6 @@ const AboutSection = () => {
             </p>
           </div>
         </div>
-        <div className="flex justify-end">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-michroma font-light mb-8">
-            Equipe <span className="minimal-accent">La Elvis Tech</span>
-          </h2>
-        </div>
 
         {/* Stats minimalistas */}
         <div ref={statsRef} className="flex justify-center mb-20">
@@ -107,6 +156,64 @@ const AboutSection = () => {
                   {stat.label}
                 </p>
               </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Seção da Equipe */}
+        <div ref={teamRef} className="mb-20">
+          <div className="text-center mb-12">
+            <h3 className="text-2xl md:text-3xl font-michroma font-light mb-4">
+              Equipe <span className="minimal-accent">La Elvis Tech</span>
+            </h3>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Conheça os desenvolvedores por trás do projeto
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 max-w-6xl mx-auto">
+            {teamMembers.map((member, index) => (
+              <Card key={index} className="minimal-card border-0 shadow-sm group">
+                <CardContent className="p-6 text-center">
+                  <div className="mb-4">
+                    <div className="w-20 h-20 mx-auto rounded-full overflow-hidden bg-muted">
+                      <img 
+                        src={member.photo} 
+                        alt={member.name}
+                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                      />
+                    </div>
+                  </div>
+                  
+                  <h4 className="font-michroma font-medium text-sm mb-4 text-foreground">
+                    {member.name}
+                  </h4>
+                  
+                  <div className="flex justify-center space-x-3">
+                    <a 
+                      href={member.github} 
+                      className="text-muted-foreground hover:text-foreground transition-colors"
+                      aria-label="GitHub"
+                    >
+                      <Github className="h-4 w-4" />
+                    </a>
+                    <a 
+                      href={member.linkedin} 
+                      className="text-muted-foreground hover:text-foreground transition-colors"
+                      aria-label="LinkedIn"
+                    >
+                      <Linkedin className="h-4 w-4" />
+                    </a>
+                    <a 
+                      href={member.instagram} 
+                      className="text-muted-foreground hover:text-foreground transition-colors"
+                      aria-label="Instagram"
+                    >
+                      <Instagram className="h-4 w-4" />
+                    </a>
+                  </div>
+                </CardContent>
+              </Card>
             ))}
           </div>
         </div>
