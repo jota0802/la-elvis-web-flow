@@ -2,7 +2,6 @@
 import { useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowDown } from 'lucide-react';
-import { InteractiveGridPattern } from '@/components/ui/interactive-grid-pattern';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -64,21 +63,9 @@ const HeroSection = () => {
   };
 
   return (
-    <section id="home" ref={sectionRef} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-background via-muted/20 to-background">
-      {/* Interactive Grid Background - simplified with Z-axis animation */}
-      <div className="absolute inset-0 opacity-40">
-        <InteractiveGridPattern
-          width={100}
-          height={100}
-          numSquares={30}
-          maxOpacity={0.6}
-          duration={3}
-          className="[mask-image:radial-gradient(ellipse_at_center,white_60%,transparent_90%)] skew-y-6 -rotate-6 scale-105"
-        />
-      </div>
-
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/50 pointer-events-none" />
+    <section id="home" ref={sectionRef} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-background via-muted/10 to-background">
+      {/* Clean minimal background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-transparent to-background/30 pointer-events-none" />
 
       <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="text-center max-w-4xl mx-auto">

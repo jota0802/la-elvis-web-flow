@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Code, Database, Palette, Settings } from 'lucide-react';
+import { Code, Database, Palette, Settings, User, Cpu, Search, Brain } from 'lucide-react';
+import { AnimatedBeam } from '@/components/ui/animated-beam';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -86,20 +87,93 @@ const ServicesSection = () => {
       description: "Soluções que otimizam fluxos de trabalho empresariais.",
       visual: (
         <div className="h-24 w-full flex items-center justify-center relative">
-          <div className="space-y-2">
-            {[
-              { color: 'from-blue-500 to-purple-500', width: 'w-16' },
-              { color: 'from-green-500 to-teal-500', width: 'w-20' },
-              { color: 'from-orange-500 to-red-500', width: 'w-14' }
-            ].map((item, index) => (
-              <div key={index} className="flex items-center space-x-2">
-                <div className={`w-2 h-2 bg-gradient-to-r ${item.color} rounded-full animate-pulse`} style={{ animationDelay: `${index * 0.3}s` }} />
-                <div className={`${item.width} h-0.5 bg-gradient-to-r ${item.color.replace('500', '300')} rounded-full`} style={{
-                  animation: `flowLine 2s ease-in-out infinite ${index * 0.4}s`
-                }} />
-              </div>
-            ))}
+          {/* Nodes */}
+          <div className="absolute left-4 top-1/2 -translate-y-1/2 w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center z-10">
+            <User className="w-4 h-4 text-white" />
           </div>
+          
+          <div className="absolute left-1/2 top-2 -translate-x-1/2 w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center z-10">
+            <Brain className="w-4 h-4 text-white" />
+          </div>
+          
+          <div className="absolute left-1/2 bottom-2 -translate-x-1/2 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center z-10">
+            <Database className="w-4 h-4 text-white" />
+          </div>
+          
+          <div className="absolute right-6 top-1/3 -translate-y-1/2 w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center z-10">
+            <Search className="w-4 h-4 text-white" />
+          </div>
+          
+          <div className="absolute right-4 bottom-1/3 translate-y-1/2 w-8 h-8 bg-cyan-500 rounded-full flex items-center justify-center z-10">
+            <Cpu className="w-4 h-4 text-white" />
+          </div>
+
+          {/* Animated Beams */}
+          <AnimatedBeam
+            fromX={50}
+            fromY={50}
+            toX={150}
+            toY={20}
+            duration={2}
+            delay={0}
+            color="#8b5cf6"
+            thickness={2}
+          />
+          
+          <AnimatedBeam
+            fromX={150}
+            fromY={20}
+            toX={150}
+            toY={80}
+            duration={1.5}
+            delay={0.5}
+            color="#10b981"
+            thickness={2}
+          />
+          
+          <AnimatedBeam
+            fromX={150}
+            fromY={80}
+            toX={220}
+            toY={35}
+            duration={1.8}
+            delay={1}
+            color="#f59e0b"
+            thickness={2}
+          />
+          
+          <AnimatedBeam
+            fromX={150}
+            fromY={80}
+            toX={230}
+            toY={70}
+            duration={1.6}
+            delay={1.2}
+            color="#06b6d4"
+            thickness={2}
+          />
+          
+          <AnimatedBeam
+            fromX={220}
+            fromY={35}
+            toX={150}
+            toY={20}
+            duration={2}
+            delay={2}
+            color="#8b5cf6"
+            thickness={2}
+          />
+          
+          <AnimatedBeam
+            fromX={150}
+            fromY={20}
+            toX={50}
+            toY={50}
+            duration={1.5}
+            delay={3}
+            color="#3b82f6"
+            thickness={2}
+          />
         </div>
       )
     }
