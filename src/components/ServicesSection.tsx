@@ -110,10 +110,10 @@ const ServicesSection = () => {
 
           {/* Animated Beams */}
           <AnimatedBeam
-            fromX={50}
-            fromY={50}
-            toX={150}
-            toY={20}
+            fromX={32}
+            fromY={48}
+            toX={120}
+            toY={16}
             duration={2}
             delay={0}
             color="#8b5cf6"
@@ -121,9 +121,9 @@ const ServicesSection = () => {
           />
           
           <AnimatedBeam
-            fromX={150}
-            fromY={20}
-            toX={150}
+            fromX={120}
+            fromY={16}
+            toX={120}
             toY={80}
             duration={1.5}
             delay={0.5}
@@ -132,10 +132,10 @@ const ServicesSection = () => {
           />
           
           <AnimatedBeam
-            fromX={150}
+            fromX={120}
             fromY={80}
-            toX={220}
-            toY={35}
+            toX={200}
+            toY={30}
             duration={1.8}
             delay={1}
             color="#f59e0b"
@@ -143,9 +143,9 @@ const ServicesSection = () => {
           />
           
           <AnimatedBeam
-            fromX={150}
+            fromX={120}
             fromY={80}
-            toX={230}
+            toX={210}
             toY={70}
             duration={1.6}
             delay={1.2}
@@ -154,10 +154,10 @@ const ServicesSection = () => {
           />
           
           <AnimatedBeam
-            fromX={220}
-            fromY={35}
-            toX={150}
-            toY={20}
+            fromX={200}
+            fromY={30}
+            toX={120}
+            toY={16}
             duration={2}
             delay={2}
             color="#8b5cf6"
@@ -165,10 +165,10 @@ const ServicesSection = () => {
           />
           
           <AnimatedBeam
-            fromX={150}
-            fromY={20}
-            toX={50}
-            toY={50}
+            fromX={120}
+            fromY={16}
+            toX={32}
+            toY={48}
             duration={1.5}
             delay={3}
             color="#3b82f6"

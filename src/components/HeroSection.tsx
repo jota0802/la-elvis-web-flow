@@ -2,6 +2,7 @@
 import { useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowDown } from 'lucide-react';
+import { AnimatedGrid } from '@/components/ui/backgrounds';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -63,12 +64,10 @@ const HeroSection = () => {
   };
 
   return (
-    <section id="home" ref={sectionRef} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-background via-muted/10 to-background">
-      {/* Clean minimal background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-transparent to-background/30 pointer-events-none" />
-
-      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <div className="text-center max-w-4xl mx-auto">
+    <AnimatedGrid className="min-h-screen flex items-center justify-center">
+      <section id="home" ref={sectionRef} className="relative w-full min-h-screen flex items-center justify-center">
+        <div ref={heroRef} className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="text-center max-w-4xl mx-auto">
           
           {/* Logo */}
           <div className="mb-8">
@@ -127,9 +126,10 @@ const HeroSection = () => {
               </div>
             </div>
           </div>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </AnimatedGrid>
   );
 };
 

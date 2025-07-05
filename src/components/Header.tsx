@@ -47,7 +47,7 @@ const Header = () => {
             <img 
               src="/logolaelvis.svg" 
               alt="La Elvis Tech" 
-              className="h-8 w-8 lg:h-8 lg:w-8 filter brightness-0 transition-transform blur-sm hover:blur-none duration-300 hover:scale-110 "
+              className="h-8 w-8 lg:h-8 lg:w-8 filter brightness-0 transition-transform duration-300 hover:scale-110"
             />
             <h1 className="text-xl lg:text-2xl font-michroma font-bold text-primary">
               La Elvis Tech
