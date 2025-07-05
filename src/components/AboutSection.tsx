@@ -69,21 +69,25 @@ const AboutSection = () => {
         }
       );
 
-      gsap.fromTo(
-        teamRef.current,
-        { opacity: 0, y: 30 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          delay: 0.4,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: teamRef.current,
-            start: "top 75%",
-          },
-        }
-      );
+      // Animação com stagger para os membros da equipe
+      if (teamRef.current) {
+        const teamCards = teamRef.current.querySelectorAll('.team-member-card');
+        gsap.fromTo(teamCards,
+          { opacity: 0, y: 50, scale: 0.8 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.6,
+            stagger: 0.15,
+            ease: "back.out(1.2)",
+            scrollTrigger: {
+              trigger: teamRef.current,
+              start: "top 75%",
+            },
+          }
+        );
+      }
     }, sectionRef);
 
     return () => {
@@ -173,7 +177,7 @@ const AboutSection = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
             {teamMembers.map((member, index) => (
-              <GlareCard key={index} className="group">
+              <GlareCard key={index} className="group team-member-card">
                 <Card className="minimal-card border-0 shadow-sm max-w-[340px] mx-auto">
                   <CardContent className="p-6 text-center">
                     <div className="mb-4">
@@ -282,7 +286,6 @@ const AboutSection = () => {
                 blend={0.4}
                 amplitude={0.6}
                 speed={0.5}
-                className="w-full h-full"
               />
             </div>
 
@@ -296,7 +299,6 @@ const AboutSection = () => {
                 duration={500}
                 easing="linear"
                 extraScale={1.3}
-                className="w-full max-w-md"
               >
                 <div className="flex justify-center aling-betten flex-col backdrop-blur-xl bg-gradient-to-b from-white/20 to-black/10 border-hidden rounded-xl p-6 w-full border border-border/50 h-[400px]">
                   <div className="text-center mb-8">

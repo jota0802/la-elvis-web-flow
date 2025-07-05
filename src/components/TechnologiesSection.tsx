@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
+import { GlareCard } from '@/components/ui/glare-card';
+import { AnimatedBeam, FlowNode } from '@/components/ui/animated-beam';
 import { 
   SiReact, 
   SiSupabase, 
@@ -9,6 +11,7 @@ import {
   SiPostgresql 
 } from 'react-icons/si';
 import { BiLogoTypescript } from 'react-icons/bi';
+import { User, Brain, Database, Search } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -196,48 +199,114 @@ const TechnologiesSection = () => {
                 </div>
               )}
               
-              <Card className="relative overflow-hidden border border-gray-200 bg-white/90 backdrop-blur-md transition-all duration-500 hover:shadow-xl hover:scale-[1.02] py-10">
-                {/* Efeito de brilho sutil */}
-                <div 
-                  className="absolute inset-0 opacity-0 transition-opacity duration-300 pointer-events-none"
-                  style={{
-                    background: `radial-gradient(circle at center, ${tech.color}20, transparent 70%)`,
-                    opacity: hoveredTech === tech.name ? 1 : 0
-                  }}
-                />
-                
-                <CardContent className="p-6 text-center">
+              <GlareCard className="h-full">
+                <Card className="relative overflow-hidden border border-gray-200 bg-white/90 backdrop-blur-md transition-all duration-500 hover:shadow-xl hover:scale-[1.02] py-10 h-full">
+                  {/* Efeito de brilho sutil */}
                   <div 
-                    className="w-16 h-16 mx-auto mb-4 flex items-center justify-center rounded-xl bg-white transition-all duration-500"
+                    className="absolute inset-0 opacity-0 transition-opacity duration-300 pointer-events-none"
                     style={{
-                      boxShadow: hoveredTech === tech.name 
-                        ? `0 0 0 4px white, 0 0 0 6px ${tech.color}40` 
-                        : '0 4px 12px rgba(0,0,0,0.05)',
-                      transform: hoveredTech === tech.name ? 'rotate(5deg) scale(1.1)' : 'rotate(0)'
-                    }}
-                  >
-                    {tech.logo}
-                  </div>
-                  <h3 className="font-michroma font-medium text-sm mb-1 text-gray-800">
-                    {tech.name}
-                  </h3>
-                  <p className="text-xs text-gray-500">
-                    {tech.category}
-                  </p>
-                  
-                  {/* Linha de conexão animada */}
-                  <div 
-                    className="absolute bottom-0 left-1/2 h-0.5 bg-gradient-to-r from-transparent to-transparent transition-all duration-500"
-                    style={{
-                      width: hoveredTech === tech.name ? '80%' : '0%',
-                      left: hoveredTech === tech.name ? '10%' : '50%',
-                      background: `linear-gradient(to right, transparent, ${tech.color}, transparent)`
+                      background: `radial-gradient(circle at center, ${tech.color}20, transparent 70%)`,
+                      opacity: hoveredTech === tech.name ? 1 : 0
                     }}
                   />
-                </CardContent>
-              </Card>
+                  
+                  <CardContent className="p-6 text-center h-full flex flex-col justify-center">
+                    <div 
+                      className="w-16 h-16 mx-auto mb-4 flex items-center justify-center rounded-xl bg-white transition-all duration-500"
+                      style={{
+                        boxShadow: hoveredTech === tech.name 
+                          ? `0 0 0 4px white, 0 0 0 6px ${tech.color}40` 
+                          : '0 4px 12px rgba(0,0,0,0.05)',
+                        transform: hoveredTech === tech.name ? 'rotate(5deg) scale(1.1)' : 'rotate(0)'
+                      }}
+                    >
+                      {tech.logo}
+                    </div>
+                    <h3 className="font-michroma font-medium text-sm mb-1 text-gray-800">
+                      {tech.name}
+                    </h3>
+                    <p className="text-xs text-gray-500">
+                      {tech.category}
+                    </p>
+                    
+                    {/* Linha de conexão animada */}
+                    <div 
+                      className="absolute bottom-0 left-1/2 h-0.5 bg-gradient-to-r from-transparent to-transparent transition-all duration-500"
+                      style={{
+                        width: hoveredTech === tech.name ? '80%' : '0%',
+                        left: hoveredTech === tech.name ? '10%' : '50%',
+                        background: `linear-gradient(to right, transparent, ${tech.color}, transparent)`
+                      }}
+                    />
+                  </CardContent>
+                </Card>
+              </GlareCard>
             </div>
           ))}
+        </div>
+
+        {/* Seção de Automação de Processos com Animated Beam */}
+        <div className="mt-20 max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <h3 className="text-2xl md:text-3xl font-michroma font-light mb-4 text-gray-800">
+              Fluxo de <span className="text-blue-600">Automação</span>
+            </h3>
+            <p className="text-gray-600">
+              Como nossa IA processa e automatiza seus dados
+            </p>
+          </div>
+
+          <div className="relative h-64 bg-white/90 backdrop-blur-md rounded-2xl border border-gray-200 p-8">
+            {/* Nós do fluxo */}
+            <FlowNode 
+              className="absolute top-1/2 left-8 transform -translate-y-1/2 w-12 h-12 bg-blue-100 rounded-full border-2 border-blue-300"
+              style={{ zIndex: 10 }}
+            >
+              <User className="w-6 h-6 text-blue-700" />
+            </FlowNode>
+
+            <FlowNode 
+              className="absolute top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-purple-100 rounded-full border-2 border-purple-300"
+              style={{ zIndex: 10 }}
+            >
+              <Brain className="w-6 h-6 text-purple-700" />
+            </FlowNode>
+
+            <FlowNode 
+              className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-green-100 rounded-full border-2 border-green-300"
+              style={{ zIndex: 10 }}
+            >
+              <Database className="w-6 h-6 text-green-700" />
+            </FlowNode>
+
+            <FlowNode 
+              className="absolute bottom-1/4 left-1/2 transform -translate-x-1/2 translate-y-1/2 w-12 h-12 bg-orange-100 rounded-full border-2 border-orange-300"
+              style={{ zIndex: 10 }}
+            >
+              <Search className="w-6 h-6 text-orange-700" />
+            </FlowNode>
+
+            <FlowNode 
+              className="absolute top-1/2 right-8 transform -translate-y-1/2 w-12 h-12 bg-blue-100 rounded-full border-2 border-blue-300"
+              style={{ zIndex: 10 }}
+            >
+              <User className="w-6 h-6 text-blue-700" />
+            </FlowNode>
+
+            {/* Beams animados */}
+            <AnimatedBeam fromX={32} fromY={128} toX={150} toY={64} delay={0} color="#3b82f6" />
+            <AnimatedBeam fromX={150} fromY={64} toX={150} toY={128} delay={0.5} color="#8b5cf6" />
+            <AnimatedBeam fromX={150} fromY={128} toX={150} toY={170} delay={1} color="#10b981" />
+            <AnimatedBeam fromX={150} fromY={170} toX={150} toY={64} delay={1.5} color="#f97316" />
+            <AnimatedBeam fromX={150} fromY={64} toX={268} toY={128} delay={2} color="#3b82f6" />
+
+            {/* Labels */}
+            <div className="absolute bottom-2 left-4 text-xs text-gray-600 font-medium">Usuário</div>
+            <div className="absolute top-2 left-1/2 transform -translate-x-1/2 text-xs text-gray-600 font-medium">OpenAI</div>
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-8 text-xs text-gray-600 font-medium">Supabase</div>
+            <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 text-xs text-gray-600 font-medium">Busca</div>
+            <div className="absolute bottom-2 right-4 text-xs text-gray-600 font-medium">Resultado</div>
+          </div>
         </div>
       </div>
     </section>
