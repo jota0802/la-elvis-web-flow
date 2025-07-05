@@ -71,8 +71,9 @@ const AboutSection = () => {
 
       // Animação com stagger para os membros da equipe
       if (teamRef.current) {
-        const teamCards = teamRef.current.querySelectorAll('.team-member-card');
-        gsap.fromTo(teamCards,
+        const teamCards = teamRef.current.querySelectorAll(".team-member-card");
+        gsap.fromTo(
+          teamCards,
           { opacity: 0, y: 50, scale: 0.8 },
           {
             opacity: 1,
@@ -268,18 +269,20 @@ const AboutSection = () => {
           </div>
         </div>
         {/* Projeto em destaque com Aurora como fundo */}
-        <div ref={projectRef} className="max-w-3xl mx-auto border-hidden rounded-2xl">
-          <div className="text-center mb-20">
-            <h3 className="text-3xl md:text-4xl lg:text-5xl font-michroma font-light mb-4">
+        <div
+          ref={projectRef}
+          className="max-w-3xl mx-auto border-hidden rounded-2xl px-4"
+        >
+          <div className="text-center mb-10 md:mb-20">
+            <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-michroma font-light mb-4">
               Projeto em <span className="minimal-accent">Destaque</span>
             </h3>
           </div>
 
           <Card
             className="minimal-card border-0 shadow-md relative overflow-hidden"
-            style={{ width: "auto", height: "500px" }}
+            style={{ width: "auto", minHeight: "470px", height: "auto" }}
           >
-            {/* Aurora como fundo */}
             <div className="absolute inset-0 z-0 blur-sm">
               <Aurora
                 colorStops={["#3381ff", "#ff4dcc", "#fc1921"]}
@@ -289,8 +292,7 @@ const AboutSection = () => {
               />
             </div>
 
-            {/* Conteúdo principal */}
-            <div className="absolute inset-0 flex flex-col items-center justify-center p-8 z-10">
+            <div className="absolute inset-0 flex flex-col items-center justify-center p-4 sm:p-8 z-10">
               <ClickSpark
                 sparkColor="#2345e0"
                 sparkSize={12}
@@ -300,51 +302,61 @@ const AboutSection = () => {
                 easing="linear"
                 extraScale={1.3}
               >
-                <div className="flex justify-center aling-betten flex-col backdrop-blur-xl bg-gradient-to-b from-white/20 to-black/10 border-hidden rounded-xl p-6 w-full border border-border/50 h-[400px]">
-                  <div className="text-center mb-8">
-                    <h4 className="text-4xl font-michroma font-medium mb-4 text-foreground text-neutral-800">
+                <div className="flex flex-col justify-center items-center backdrop-blur-lg bg-gradient-to-b from-white/20 to-black/10 border-hidden rounded-xl p-4 sm:p-6 w-full border border-border/50 min-h-[250px] sm:min-h-[400px] z-9">
+                  <div className="text-center mb-4 sm:mb-8">
+                    <h4 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-michroma font-medium mb-2 sm:mb-4 text-neutral-800">
                       Lab Dash Animates
                     </h4>
-                    <p className="text-md font-light text-neutral-200 leading-relaxed">
-                      Abaixo Repositório do Github e Link para o Site Feito para Dasa <br />- React com Vite e TypeScript.
+                    <p className="text-xs sm:text-sm md:text-base font-light text-neutral-200 leading-relaxed">
+                      Abaixo Repositório do Github e Link para o Site Feito para
+                      Dasa
+                      <br className="hidden sm:block" />- React com Vite e
+                      TypeScript.
                     </p>
                   </div>
-                  <div className="flex justify-center space-x-6 mt-8">
-                    <Magnet padding={30} disabled={false} magnetStrength={10}>
+
+                  <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-6 w-full max-w-xs sm:max-w-none">
+                    <Magnet
+                      padding={20}
+                      disabled={false}
+                      magnetStrength={10}
+                      className="w-full sm:w-auto"
+                    >
                       <Button
                         asChild
                         variant="outline"
-                        className="minimal-hover bg-transparent border-2 border-primary/30 hover:border-primary rounded-xl px-8 py-6 transition-all duration-300 group"
+                        className="minimal-hover bg-transparent border-2 border-primary/30 hover:border-primary rounded-xl px-4 py-3 sm:px-8 sm:py-6 transition-all duration-300 group w-full"
                       >
                         <a
                           href="https://github.com/La-Elvis-Tech/lab-dash-animates"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center gap-3 text-lg font-medium"
+                          className="flex items-center justify-center gap-2 sm:gap-3 text-sm sm:text-lg font-medium"
                         >
-                          <Github className="h-6 w-6 text-primary group-hover:scale-110 transition-transform" />
-                          <span className="">
-                            GitHub
-                          </span>
+                          <Github className="h-4 w-4 sm:h-6 sm:w-6 text-primary group-hover:scale-110 transition-transform" />
+                          <span>GitHub</span>
                         </a>
                       </Button>
                     </Magnet>
 
-                    <Magnet padding={30} disabled={false} magnetStrength={10}>
+                    <Magnet
+                      padding={20}
+                      disabled={false}
+                      magnetStrength={10}
+                      className="w-full sm:w-auto"
+                    >
                       <Button
                         asChild
-                        className="bg-gradient-to-r from-black/80 to-black/10 rounded-xl px-8 py-6 shadow-lg hover:shadow-xl transition-all duration-300 group"
+                        className="bg-gradient-to-r from-black/80 to-black/10 rounded-xl px-4 py-3 sm:px-8 sm:py-6 shadow-lg hover:shadow-xl transition-all duration-300 group w-full"
                       >
                         <a
                           href="https://laelvistech.netlify.app/"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center gap-3 text-lg font-medium text-white"
+                          className="flex items-center justify-center gap-2 sm:gap-3 text-sm sm:text-lg font-medium text-white"
                         >
-                          <ExternalLink className="h-6 w-6 text-white group-hover:scale-110 transition-transform" />
-                          <span className="">
-                            Ver Site
-                          </span>
+                          <ExternalLink className="h-4 w-4 sm:h-6 sm:w-6 text-white group-hover:scale-110 transition-transform" />
+                          <span>Ver Site</span>
                         </a>
                       </Button>
                     </Magnet>

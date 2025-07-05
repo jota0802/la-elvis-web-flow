@@ -1,19 +1,83 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, forwardRef } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Code, Database, Palette, Settings, User, Cpu, Search, Brain } from 'lucide-react';
-import { AnimatedBeam } from '@/components/ui/animated-beam';
+import { Code, Database, Palette, Settings, Cpu, User } from 'lucide-react';
+import { AnimatedBeam } from '@/components/ui/animated-beam-magicui';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { cn } from '@/lib/utils';
 
 gsap.registerPlugin(ScrollTrigger);
+
+// Componente Circle para os nós do Animated Beam
+const Circle = forwardRef<
+  HTMLDivElement,
+  { className?: string; children?: React.ReactNode }
+>(({ className, children }, ref) => {
+  return (
+    <div
+      ref={ref}
+      className={cn(
+        "z-10 flex size-8 items-center justify-center rounded-full border-2 bg-white p-1.5 shadow-[0_0_10px_-5px_rgba(0,0,0,0.3)]",
+        className,
+      )}
+    >
+      {children}
+    </div>
+  );
+});
+
+Circle.displayName = "Circle";
 
 const ServicesSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const frontendSquareRefs = useRef<(HTMLDivElement | null)[]>([]);
-
+  
   const chartData = [45, 75, 90, 60, 85, 70];
+
+  // Componente visual para automação
+  const AutomationVisual = () => {
+    const containerRef = useRef<HTMLDivElement>(null);
+    const gearRef = useRef<HTMLDivElement>(null);
+    const cpuRef = useRef<HTMLDivElement>(null);
+
+    return (
+      <div 
+        ref={containerRef} 
+        className="h-24 w-full relative flex items-center justify-center"
+      >
+        <div className="absolute inset-0 flex items-center justify-between px-4">
+          <Circle ref={gearRef} className="border-gray-200">
+            <User className="size-5 text-gray-600" />
+          </Circle>
+          <Circle ref={cpuRef} className="border-gray-200">
+            <img src="/elvinho.png" className="size-4" />
+          </Circle>
+        </div>
+
+        <AnimatedBeam
+          containerRef={containerRef}
+          fromRef={gearRef}
+          toRef={cpuRef}
+          startYOffset={0}
+          endYOffset={0}
+          curvature={45}
+          duration={3}
+        />
+        <AnimatedBeam
+          containerRef={containerRef}
+          fromRef={gearRef}
+          toRef={cpuRef}
+          startYOffset={0}
+          endYOffset={0}
+          curvature={-45}
+          reverse
+          duration={3}
+        />
+      </div>
+    );
+  };
 
   const services = [
     {
@@ -85,97 +149,7 @@ const ServicesSection = () => {
       icon: Settings,
       title: "Automação de Processos",
       description: "Soluções que otimizam fluxos de trabalho empresariais.",
-      visual: (
-        <div className="h-24 w-full flex items-center justify-center relative">
-          {/* Nodes */}
-          <div className="absolute left-4 top-1/2 -translate-y-1/2 w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center z-10">
-            <User className="w-4 h-4 text-white" />
-          </div>
-          
-          <div className="absolute left-1/2 top-2 -translate-x-1/2 w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center z-10">
-            <Brain className="w-4 h-4 text-white" />
-          </div>
-          
-          <div className="absolute left-1/2 bottom-2 -translate-x-1/2 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center z-10">
-            <Database className="w-4 h-4 text-white" />
-          </div>
-          
-          <div className="absolute right-6 top-1/3 -translate-y-1/2 w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center z-10">
-            <Search className="w-4 h-4 text-white" />
-          </div>
-          
-          <div className="absolute right-4 bottom-1/3 translate-y-1/2 w-8 h-8 bg-cyan-500 rounded-full flex items-center justify-center z-10">
-            <Cpu className="w-4 h-4 text-white" />
-          </div>
-
-          {/* Animated Beams */}
-          <AnimatedBeam
-            fromX={32}
-            fromY={48}
-            toX={120}
-            toY={16}
-            duration={2}
-            delay={0}
-            color="#8b5cf6"
-            thickness={2}
-          />
-          
-          <AnimatedBeam
-            fromX={120}
-            fromY={16}
-            toX={120}
-            toY={80}
-            duration={1.5}
-            delay={0.5}
-            color="#10b981"
-            thickness={2}
-          />
-          
-          <AnimatedBeam
-            fromX={120}
-            fromY={80}
-            toX={200}
-            toY={30}
-            duration={1.8}
-            delay={1}
-            color="#f59e0b"
-            thickness={2}
-          />
-          
-          <AnimatedBeam
-            fromX={120}
-            fromY={80}
-            toX={210}
-            toY={70}
-            duration={1.6}
-            delay={1.2}
-            color="#06b6d4"
-            thickness={2}
-          />
-          
-          <AnimatedBeam
-            fromX={200}
-            fromY={30}
-            toX={120}
-            toY={16}
-            duration={2}
-            delay={2}
-            color="#8b5cf6"
-            thickness={2}
-          />
-          
-          <AnimatedBeam
-            fromX={120}
-            fromY={16}
-            toX={32}
-            toY={48}
-            duration={1.5}
-            delay={3}
-            color="#3b82f6"
-            thickness={2}
-          />
-        </div>
-      )
+      visual: <AutomationVisual />
     }
   ];
 
@@ -275,7 +249,6 @@ const ServicesSection = () => {
               <Card className="minimal-card h-full group hover:border-primary/20 transition-all duration-300">
                 <CardContent className="p-8">
                   <div className="flex items-start space-x-4 mb-6">
-                    
                     <div className="flex-1">
                       <h3 className="text-lg font-michroma font-medium mb-3 text-foreground">
                         {service.title}
